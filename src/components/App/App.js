@@ -32,12 +32,6 @@ function App() {
         <Header />
       ) }
       <Switch>
-        {/* <Route exact path="/signin">
-          <Login
-            logo={logo}
-            login={authorize}
-            />
-        </Route> */}
         <Route exact path="/signup">
           <Registration />
         </Route>

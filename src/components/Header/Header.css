@@ -4,6 +4,7 @@
   padding:18px 70px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .header__link{
@@ -47,9 +48,22 @@ opacity: .5;
 opacity: .5;
 }
 
+.header__icon{
+  margin-left: 17px;
+  padding: 8px;
+  background-color: #F9F9F9;
+}
+
 @media screen and (max-width: 768px){
   .header {
     padding:18px 30px;
+
+}
+}
+
+@media screen and (max-width: 500px){
+  .header {
+    padding:18px 14px;
 
 }
 }

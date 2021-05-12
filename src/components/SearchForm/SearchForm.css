@@ -8,7 +8,7 @@
   line-height:34px;
   font-weight:500;
   color:#A0A0A0;
-  margin: 0;
+  margin: 0 5px 0 5px;
   text-align: center;
   border: none;
   width: 100%;
@@ -46,7 +46,8 @@
 .checkbox {
   display: flex;
   align-items: center;
-  padding-top: 29px;
+  padding-top: 30px;
+  padding-bottom: 49px;
   justify-content: center;
 }
 

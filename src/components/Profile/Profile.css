@@ -68,9 +68,11 @@
   transition: opacity .3s ease;
 }
 
-.profile-edit-button_red{
+.profile-edit-button_error{
   color:#FF4062;
   font-weight: 500;
+  text-decoration: none;
+  text-align: center;
 }
 
 .profile-edit-button:not(:last-child){

@@ -45,10 +45,16 @@
 }
 
 .form__error{
+  display: none;
+  text-align: center;
   font-size:10px;
   line-height:12px;
   color: #FF4062;
-  margin:10px 0 0 0;
+  margin: 0;
+}
+
+.form__error_active{
+  display:block;
 }
 
 .form__error_pass {

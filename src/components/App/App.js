@@ -16,8 +16,8 @@ import Profile from '../Profile/Profile';
 function App() {
   const [loginIn, setloginIn] = React.useState(false);
   const [currentUser, setCarrentUser] = React.useState({
-    name: 'Имя',
-    email: 'email',
+    name: 'Артём',
+    email: 'tomsungg@yandex.ru',
   });
 
   const history = useHistory();

@@ -1,18 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import logo from '../../images/logo.svg';
-import Navigation from '../Navigation/Navigation';
 import './Profile.css';
 
 function Profile() {
   return (
     <>
-      <header className="header">
-        <Link to="/">
-          <img className="header__logo" src={logo} alt="logo" />
-        </Link>
-        <Navigation />
-      </header>
       <section className="profile">
         <form className="profile__form">
           <h1 className="profile__title">Привет, Артём!</h1>

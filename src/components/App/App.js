@@ -42,7 +42,6 @@ function App() {
   const routesPathsHeaderArray = [
     '/signin',
     '/signup',
-    '/profile',
     '/404',
   ];
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import './Login.css';
 import { Link } from 'react-router-dom';
 import { Formik } from 'formik';
 import * as yup from 'yup';
@@ -14,7 +13,7 @@ function Login() {
     <>
       <section className="register">
         <div className="register__container">
-          <Link to="/" className="register__link-logo"><img className="register__logo" src={logo} alt="logo" /></Link>
+          <Link to="/" className="register__link-logo"><img className="register__logo" src={logo} alt="лого" /></Link>
           <h1 className="register__title">Рады видеть!</h1>
           <Formik
             initialValues={{

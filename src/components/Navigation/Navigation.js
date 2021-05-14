@@ -26,7 +26,7 @@ function Navigation() {
   });
   return (
     <>
-       <div onClick={handleClickMenu} className={menuClass}>
+      <div onClick={handleClickMenu} className={menuClass}>
         <span className="menu_midline"></span>
       </div>
       <div onClick={handleClickMenu} className={overlayClass}></div>
@@ -40,7 +40,7 @@ function Navigation() {
             <img
               className="header__icon"
               src={profileIcon}
-              alt="profile-logo"
+              alt="лого профиля"
             />
           </Link>
         </nav>
@@ -49,11 +49,11 @@ function Navigation() {
           <img
             className="header__icon"
             src={profileIcon}
-            alt="profile-logo"
+            alt="лого профиля"
           />
         </Link>
       </div>
-      </>
+    </>
   );
 }
 

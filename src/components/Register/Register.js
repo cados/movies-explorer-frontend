@@ -15,7 +15,7 @@ function Register() {
     <>
       <section className="register">
         <div className="register__container">
-          <Link to="/" className="register__link-logo"><img className="register__logo" src={logo} alt="logo" /></Link>
+          <Link to="/" className="register__link-logo"><img className="register__logo" src={logo} alt="лого" /></Link>
           <h1 className="register__title">Добро пожаловать!</h1>
           <Formik
             initialValues={{

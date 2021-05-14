@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import './Header.css';
 import { Link } from 'react-router-dom';
@@ -9,7 +8,7 @@ function Header(props) {
   return (
     <header className="header">
       <Link to="/">
-        <img className="header__logo" src={logo} alt="logo" />
+        <img className="header__logo" src={logo} alt="лого" />
       </Link>
       <>
         {props.loggedIn ? (

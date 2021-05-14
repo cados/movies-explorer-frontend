@@ -57,9 +57,6 @@ function App() {
       {useRouteMatch(routesPathsHeaderArray) ? null : (
         <Header
           loggedIn={loginIn}
-        // onSignup={handleSignUp}
-        // onSignin={handleSignin}
-        // onOpenMenu={setOpenMenu}
         />
       )}
       <Switch>
@@ -89,7 +86,6 @@ function App() {
         </Route>
       </Switch>
       {useRouteMatch(routesPathsFooterArray) ? null : <Footer />}
-
     </>
   );
 }

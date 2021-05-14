@@ -13,7 +13,7 @@ function Profile({ currentUser, onSignOut }) {
     <>
       <section className="profile">
         <Formik
-          initialValues = {{
+          initialValues={{
             name: currentUser.name,
             email: currentUser.email,
           }}
@@ -23,67 +23,67 @@ function Profile({ currentUser, onSignOut }) {
             console.log((values));
           }}
           validationSchema={validationSchema}
-          >
+        >
           {({
             values, errors, touched, handleChange, handleBlur,
             handleSubmit,
           }) => (
-          <form className="profile__form">
-            <h1 className="profile__title">Привет, {currentUser.name}!</h1>
-            <fieldset className="profile-form__fieldset">
-              <div className="profile-form__input-container">
-              <label className="profile-form__input-label"> Имя
+            <form className="profile__form" noValidate>
+              <h1 className="profile__title">Привет, {currentUser.name}!</h1>
+              <fieldset className="profile-form__fieldset">
+                <div className="profile-form__input-container">
+                  <label className="profile-form__input-label"> Имя
                 <input
-                  type="text"
-                  className="profile-form__input"
-                  id="name"
-                  name="name"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.name}
+                      type="text"
+                      className="profile-form__input"
+                      id="name"
+                      name="name"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.name}
 
-                />
-              </label>
+                    />
+                  </label>
 
-              </div>
-              {
-              <p className={`form__error
-                ${touched.name
-                && errors.name
-                && 'form__error_active'}`}
-              >{errors.name}</p>
-            }
-              <div className="profile-form__input-container">
-                <label className="profile-form__input-label">Почта
-                  <input
-                  type="text"
-                  className="profile-form__input"
-                  id="email"
-                  name="email"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.email}
-                  />
-                </label>
+                </div>
                 {
-              <p className={`form__error
+                  <p className={`form__error
+                ${touched.name
+                    && errors.name
+                    && 'form__error_active'}`}
+                  >{errors.name}</p>
+                }
+                <div className="profile-form__input-container">
+                  <label className="profile-form__input-label">Почта
+                  <input
+                      type="text"
+                      className="profile-form__input"
+                      id="email"
+                      name="email"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.email}
+                    />
+                  </label>
+                  {
+                    <p className={`form__error
                 ${touched.email
-                && errors.email
-                && 'form__error_active'}`}
-              >{errors.email}</p>
-            }
-              </div>
-            </fieldset>
-            <div className="profile-form__container">
-              <button
-                className="profile-edit-button"
+                      && errors.email
+                      && 'form__error_active'}`}
+                    >{errors.email}</p>
+                  }
+                </div>
+              </fieldset>
+              <div className="profile-form__container">
+                <button
+                  className="profile-edit-button"
 
-                onClick={handleSubmit}
-                type="submit">Редактировать
+                  onClick={handleSubmit}
+                  type="submit">Редактировать
               </button>
                 <Link to="/" onClick={onSignOut} className="profile-edit-button profile-edit-button_error">Выйти из аккаунта</Link>
-            </div>
-          </form>
+              </div>
+            </form>
           )}
         </Formik>
       </section>

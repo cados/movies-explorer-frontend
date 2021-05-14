@@ -51,7 +51,9 @@
   line-height:12px;
   color: #FF4062;
   margin: 0;
-}
+  text-align: left;
+  padding-bottom: 8px;
+ }
 
 .form__error_active{
   display:block;

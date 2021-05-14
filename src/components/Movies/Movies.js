@@ -2,17 +2,26 @@ import React from 'react';
 import './Movies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCard from './MoviesCard/MoviesCard';
-// import movieList from '../../utils/Movies.json';
-// import MoviesCardList from './MoviesCardList/MoviesCardList';
+import MoviesCardList from './MoviesCardList/MoviesCardList';
+import movieList from '../../utils/Movies.json';
 
 function Movies() {
+  const [currentMovieList, setCurrentMovieList] = React.useState(movieList);
+  function searchFilter(searchText) {
+    setCurrentMovieList(movieList.filter((movie) => movie
+      .nameRU.toUpperCase()
+      .indexOf(searchText.toUpperCase()) > -1));
+  }
   return (
     <section className="movies">
       <SearchForm
-        // title="Фильмы"
-        // search={searchFilter}
+        title="Фильмы"
+        search={searchFilter}
       />
-        <MoviesCard />
+      <MoviesCardList
+        movieList={currentMovieList}
+        component={MoviesCard}
+      />
     </section>
   );
 }

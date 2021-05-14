@@ -1,27 +1,18 @@
 import React from 'react';
 import './MoviesCard.css';
-import classnames from 'classnames';
-import savedIcon from '../../../images/savedIcon.svg';
+import deleteIcon from '../../../images/delete.svg';
 
-function MoviesCard(props) {
-  const [saved, setSeved] = React.useState(false);
-  const savedClass = classnames({
-    movies__favorite: true,
-    movies__favorite_saved: saved,
-  });
-
-  function savedClick() {
-    setSeved(!saved);
-  }
+function SavedMoviesCard(props) {
+  function savedClick() { }
 
   function duration(timeInSeconds) {
     const hours = Math.floor(timeInSeconds / 60 / 60);
     const minutes = Math.floor(timeInSeconds / 60) % 60;
+
     return `${hours}ч ${minutes}м`;
   }
 
   return (
-
     <li>
       <article className="movies-card-article">
         <div className="movies-card-article__header">
@@ -30,7 +21,7 @@ function MoviesCard(props) {
             <p className="movies-card-article__subtitle">{duration(props.data.duration)}</p>
           </div>
           <div className="movies-card-article__favorite-button" onClick={savedClick}>
-            <img className={savedClass} src={savedIcon} alt="Добавить в избранное" />
+            <img src={deleteIcon} alt="Добавить в избранное" />
           </div>
         </div>
         <div className="movies-card-article__image-section">
@@ -40,8 +31,7 @@ function MoviesCard(props) {
         </div>
       </article>
     </li>
-
   );
 }
 
-export default MoviesCard;
+export default SavedMoviesCard;

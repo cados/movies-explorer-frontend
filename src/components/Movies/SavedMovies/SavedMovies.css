@@ -46,16 +46,16 @@
 
 .movies-card-article__favorite-button{
   width: 30px;
-    height: 30px;
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    border: unset;
-    background: unset;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    background: url(../../../images/unsavedIcon.svg);
+  height: 30px;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  border: unset;
+  background: unset;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  background: url(../../../images/unsavedIcon.svg);
 }
 
 .movies-card-article__favorite-button-saved{

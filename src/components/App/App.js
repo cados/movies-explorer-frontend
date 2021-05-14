@@ -10,11 +10,11 @@ import NotFound from '../NotFound/NotFound';
 import Login from '../Login/Login';
 import Registration from '../Register/Register';
 import Profile from '../Profile/Profile';
-
-// import Movies from '../Movies/Movies';
+import SavedMovies from '../Movies/SavedMovies/SavedMovies';
+import Movies from '../Movies/Movies';
 
 function App() {
-  const [loginIn, setloginIn] = React.useState(false);
+  const [loginIn, setloginIn] = React.useState(true);
   const [currentUser, setCarrentUser] = React.useState({
     name: 'Артём',
     email: 'tomsungg@yandex.ru',
@@ -53,25 +53,25 @@ function App() {
   ];
 
   return (
-      <>
+    <>
       {useRouteMatch(routesPathsHeaderArray) ? null : (
         <Header
-        loggedIn={loginIn}
+          loggedIn={loginIn}
         // onSignup={handleSignUp}
         // onSignin={handleSignin}
         // onOpenMenu={setOpenMenu}
         />
-      ) }
+      )}
       <Switch>
         <Route exact path="/">
           <Main />
         </Route>
-        {/* <Route exact path="/movies">
+        <Route exact path="/movies">
           <Movies />
         </Route>
         <Route exact path="/saved-movies">
-          <Movies />
-        </Route> */}
+          <SavedMovies />
+        </Route>
         <Route exact path="/signup">
           <Registration onLogIn={handleSignUp} />
         </Route>
@@ -79,7 +79,7 @@ function App() {
           <Login onLogIn={handleSignIn} />
         </Route>
         <Route exact path="/profile">
-          <Profile currentUser={currentUser} onSignOut={handleSignOut}/>
+          <Profile currentUser={currentUser} onSignOut={handleSignOut} />
         </Route>
         <Route exact path="/404">
           <NotFound />

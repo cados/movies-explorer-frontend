@@ -3,6 +3,7 @@ import './App.css';
 import {
   Route, Switch, Redirect, useRouteMatch, useHistory,
 } from 'react-router-dom';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
@@ -15,10 +16,7 @@ import Movies from '../Movies/Movies';
 
 function App() {
   const [loginIn, setloginIn] = React.useState(true);
-  const [currentUser, setCarrentUser] = React.useState({
-    name: 'Артём',
-    email: 'tomsungg@yandex.ru',
-  });
+  const [currentUser, setCarrentUser] = React.useState({});
 
   const history = useHistory();
 
@@ -63,25 +61,42 @@ function App() {
         <Route exact path="/">
           <Main />
         </Route>
-        <Route exact path="/movies">
-          <Movies />
-        </Route>
-        <Route exact path="/saved-movies">
-          <SavedMovies />
-        </Route>
+        <ProtectedRoute
+          exact
+          loggedIn={loginIn}
+          path="/movies"
+          component={Movies}
+        />
+        <ProtectedRoute
+          exact
+          path="/saved-movies"
+          loggedIn={loginIn}
+          component={SavedMovies}
+        />
         <Route exact path="/signup">
-          <Registration onLogIn={handleSignUp} />
+          <Registration
+            onLogIn={handleSignUp} />
         </Route>
-        <Route exact path="/signin">
-          <Login onLogIn={handleSignIn} />
+        <Route
+          exact
+          path="/signin">
+          <Login
+            onLogIn={handleSignIn} />
         </Route>
-        <Route exact path="/profile">
-          <Profile currentUser={currentUser} onSignOut={handleSignOut} />
-        </Route>
+        <ProtectedRoute
+          exact
+          path="/profile"
+          loggedIn={loginIn}
+          component={Profile}
+          onSignOut={handleSignOut}
+          currentUser={currentUser}
+        />
         <Route exact path="/404">
           <NotFound />
         </Route>
-        <Route exact path="*">
+        <Route
+          exact
+          path="*">
           <Redirect to="/404" />
         </Route>
       </Switch>

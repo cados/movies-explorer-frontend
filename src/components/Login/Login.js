@@ -4,11 +4,12 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import logo from '../../images/logo.svg';
 
-function Login() {
+function Login({ onLogin }) {
   const validationSchema = yup.object().shape({
     email: yup.string().email('Неверный формат email').required('Обязательное поле'),
     password: yup.string().required('Обязательное поле'),
   });
+
   return (
     <>
       <section className="register">
@@ -21,11 +22,17 @@ function Login() {
               password: '',
             }}
             validateOnBlur
+            onSubmit={(values, onSubmitProps) => {
+              onLogin(values);
+              onSubmitProps.setSubmitting(false);
+            }
+            }
             validationSchema={validationSchema}
           >
             {({
               values, handleChange, handleBlur,
               errors, touched, handleSubmit,
+              isValid, dirty, isSubmitting,
             }) => (
               <form className="form" noValidate>
                 <label className="form__label">E-mail
@@ -69,6 +76,7 @@ function Login() {
                 <button
                   className="form__button"
                   type="submit"
+                  disabled={!isValid || !dirty || isSubmitting}
                   onClick={handleSubmit}
                 >Войти</button>
                 <p className="register__text">

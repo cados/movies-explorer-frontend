@@ -3,12 +3,14 @@ import { Link } from 'react-router-dom';
 import './Profile.css';
 import { Formik } from 'formik';
 import * as yup from 'yup';
+// import CurrentUserContext from '../contexts/CurrentUserContext';
 
 function Profile({ currentUser, onSignOut }) {
   const validationSchema = yup.object().shape({
     name: yup.string().required('Обязательное поле'),
     email: yup.string().email('Неверный формат email').required('Обязательное поле'),
   });
+
   return (
     <>
       <section className="profile">

@@ -74,6 +74,13 @@
   padding-bottom: 15px;
   margin-top:69px;
   transition: .3s ease;
+  cursor: pointer;
+}
+
+.form__button:disabled{
+
+  opacity: .5;
+  transition: none;
 }
 
 .form__button:hover{

@@ -1,0 +1,74 @@
+.infotooltip {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.infotooltip__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: #000;
+  opacity: .4;
+  z-index: -1;
+}
+
+.infotooltip__container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  margin: auto;
+  max-width: 75vw;
+  width: 360px;
+  height: max-content;
+  background-color: white;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  z-index: 1;
+  color: #000;
+}
+
+.infotooltip__image {
+  width: max-content;
+  max-height: 75vh;
+  background-color: transparent;
+}
+
+.infotooltip__close {
+  border: none;
+  position: absolute;
+  top: -47px;
+  right: -47px;
+  height: 58px;
+  width: 58px;
+  cursor: pointer;
+  padding: 0;
+  background: center no-repeat url(../../images/closeIcon.svg);
+  background-size: cover;
+  outline: none;
+  transition: opacity 0.2s;
+}
+
+.infotooltip__close:hover {
+  opacity: .6;
+}
+
+.infotooltip__text {
+  text-align: center;
+  margin: 0;
+  padding-top: 30px;
+}
+
+.infotooltip_opened {
+  display: flex;
+}

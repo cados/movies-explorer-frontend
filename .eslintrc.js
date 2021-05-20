@@ -19,5 +19,7 @@ module.exports = {
   ],
   rules: {
     'react/prop-types': 'off',
+    'no-underscore-dangle': 0,
+    'class-methods-use-this': 0,
   },
 };

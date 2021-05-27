@@ -18,7 +18,6 @@ class MainApi {
       method: 'POST',
       body: JSON.stringify(data),
     }).then((res) => this._responseResult(res));
-    // .catch((err) => { throw err; });
   }
 
   authorize(data) {
@@ -27,7 +26,6 @@ class MainApi {
       method: 'POST',
       body: JSON.stringify(data),
     }).then((res) => this._responseResult(res));
-    // .catch((err) => { throw err; });
   }
 
   checkToken(token) {
@@ -38,7 +36,17 @@ class MainApi {
         Authorization: `Bearer ${token}`,
       },
     }).then((res) => this._responseResult(res));
-    // .catch((err) => { throw err; });
+  }
+
+  updateUser(data, token) {
+    return fetch(`${this.url}/users/me`, {
+      method: 'PATCH',
+      headers: {
+        ...this.headers,
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    }).then((res) => this._responseResult(res));
   }
 }
 

@@ -108,6 +108,14 @@ function App() {
   //     })
   // };
 
+  const handleUpdateUser = (data) => {
+    const token = localStorage.getItem('jwt');
+    mainApi.updateUser(data, token)
+      .then((res) => {
+        setCurrentUser(res);
+      });
+  };
+
   const infoTooltipClose = () => {
     setIsInfoTooltipOpen(false);
   };
@@ -185,6 +193,7 @@ function App() {
               loggedIn={loggedIn}
               component={Profile}
               onSignOut={handleSignOut}
+              onUpdateUser={handleUpdateUser}
               currentUser={currentUser}
             />
             <Route exact path="/404">

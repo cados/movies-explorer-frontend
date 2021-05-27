@@ -5,7 +5,7 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 // import CurrentUserContext from '../contexts/CurrentUserContext';
 
-function Profile({ currentUser, onSignOut }) {
+function Profile({ currentUser, onSignOut, onUpdateUser }) {
   const validationSchema = yup.object().shape({
     name: yup.string().required('Обязательное поле'),
     email: yup.string().email('Неверный формат email').required('Обязательное поле'),
@@ -20,9 +20,9 @@ function Profile({ currentUser, onSignOut }) {
             email: currentUser.email,
           }}
           validateOnBlur
-          onSubmit={(values) => {
-            // eslint-disable-next-line no-console
-            console.log((values));
+          onSubmit={(values, onSubmitProps) => {
+            onUpdateUser(values);
+            onSubmitProps.setSubmitting(false);
           }}
           validationSchema={validationSchema}
         >

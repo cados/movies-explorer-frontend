@@ -12,11 +12,11 @@ class MainApi {
       .then((err) => { throw err; });
   }
 
-  register(data) {
+  register(name, email, password) {
     return fetch(`${this.url}/signup`, {
       headers: this.headers,
       method: 'POST',
-      body: JSON.stringify(data),
+      body: JSON.stringify({ name, email, password }),
     }).then((res) => this._responseResult(res));
   }
 

@@ -21,27 +21,18 @@ function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = React.useState(false);
-  const [infoToolsTipText, setInfoToolsTipText] = React.useState({
-    text: 'Что-то пошло не так! Попробуйте ещё раз.',
-    status: false,
-  });
+  const [errorMessage, setErrorMessage] = React.useState('');
 
   const history = useHistory();
 
-  const handleFail = (message, res) => {
-    if (res === true) {
-      setInfoToolsTipText({
-        text: message.message,
-        status: true,
-      });
+  function showPopupError(error) {
+    if (error.message) {
+      setErrorMessage(error.message);
     } else {
-      setInfoToolsTipText({
-        text: message.message,
-        status: false,
-      });
+      setErrorMessage(error.validation.body.message);
     }
     setIsInfoTooltipOpen(true);
-  };
+  }
 
   // const handleSignUp = () => {
   //   localStorage.setItem('logginIn', 'true');
@@ -63,17 +54,17 @@ function App() {
             setCurrentUser(res);
             setLoggedIn(true);
           } else {
-            handleFail(res);
+            showPopupError(res);
           }
         })
-        .catch((err) => handleFail(err));
+        .catch((err) => showPopupError(err));
     }
   };
 
-  const handleSignIn = (data) => {
+  function handleSignIn(email, password) {
     mainApi.authorize({
-      email: data.email,
-      password: data.password,
+      email,
+      password,
     })
       .then((res) => {
         localStorage.setItem('jwt', res.token);
@@ -83,8 +74,8 @@ function App() {
       .then(() => {
         checkToken();
       })
-      .catch((err) => handleFail(err));
-  };
+      .catch((err) => showPopupError(err));
+  }
 
   // const handleSignin = (data) => {
   //   setIsLoadingSignin(true);
@@ -107,6 +98,17 @@ function App() {
   //       setIsLoadingSignin(false);
   //     })
   // };
+
+  function handleRegister(name, email, password) {
+    mainApi.register(name, email, password)
+      .then(() => {
+        handleSignIn(email, password);
+      })
+      .catch((error) => {
+        showPopupError(error);
+        history.push('/signup');
+      });
+  }
 
   const handleUpdateUser = (data) => {
     const token = localStorage.getItem('jwt');
@@ -163,26 +165,21 @@ function App() {
               component={SavedMovies}
             />
             <Route exact path="/signup">
-
               {
                 loggedIn
                   ? <Redirect to='/movies' />
                   : <Registration
                     onLogin={handleSignIn}
-                    onFail={handleFail} />
+                    onRegister={handleRegister}
+                  />
               }
-
             </Route>
             <Route exact path="/signin">
               {
-                // <Login
-                // onLogIn={handleSignIn} />
                 loggedIn
                   ? <Redirect to="/movies" />
                   : <Login
                     // logo={logo}
-                    // login={initialAuth}
-                    // onFail={handleFail}
                     onLogin={handleSignIn}
                   />
               }
@@ -209,10 +206,10 @@ function App() {
         <InfoTooltip
           isOpen={isInfoTooltipOpen}
           onClose={infoTooltipClose}
-          infoContent={infoToolsTipText}
+          errorMessage={errorMessage}
         />
       </>
-      { useRouteMatch(routesPathsFooterArray) ? null : <Footer />}
+      {useRouteMatch(routesPathsFooterArray) ? null : <Footer />}
     </>
   );
 }

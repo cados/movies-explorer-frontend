@@ -1,22 +1,51 @@
 import React from 'react';
 import './MoviesCard.css';
-import classnames from 'classnames';
-import savedIcon from '../../../images/savedIcon.svg';
 
 function MoviesCard(props) {
-  const [saved, setSeved] = React.useState(false);
-  const savedClass = classnames({
-    movies__favorite: true,
-    movies__favorite_saved: saved,
-  });
+  const [isLiked, setIsLiked] = React.useState(props.isLiked);
+  React.useEffect(() => {
+    setIsLiked(props.isLiked);
+  }, [props.isLiked]);
 
-  function savedClick() {
-    setSeved(!saved);
+  function handleLikeClick() {
+    if (isLiked) {
+      setIsLiked(false);
+      props.onMovieDislike(props);
+    } else {
+      setIsLiked(true);
+      props.onMovieLike({
+        country: props.country || 'не указано',
+        director: props.director || 'не указано',
+        duration: props.duration || 'не указано',
+        description: props.description || 'не указано',
+        image: props.image || 'https://images.unsplash.com/photo-1588066801004-3d2a8ef323d7',
+        trailer: props.trailer || 'https://www.youtube.com',
+        nameRU: props.nameRU || 'не указано',
+        nameEN: props.nameEN || 'не указано',
+        movieId: props.movieId,
+        thumbnail: props.thumbnail,
+        year: props.year,
+      });
+    }
   }
 
-  function duration(timeInSeconds) {
-    const hours = Math.floor(timeInSeconds / 60 / 60);
-    const minutes = Math.floor(timeInSeconds / 60) % 60;
+  function handleDeleteClick() {
+    props.onMovieDelete(props);
+  }
+
+  function handleClick() {
+    if (props.trailer !== '') {
+      window.open(props.trailer);
+    }
+  }
+
+  function duration(mins) {
+    const hours = Math.trunc(mins / 60);
+    const minutes = mins % 60;
+
+    if (mins < 60) {
+      return `${minutes}м`;
+    }
     return `${hours}ч ${minutes}м`;
   }
 
@@ -26,17 +55,33 @@ function MoviesCard(props) {
       <article className="movies-card-article">
         <div className="movies-card-article__header">
           <div className="movies-card-article__text-container">
-            <h2 className="movies-card-article__title">{props.data.nameRU}</h2>
-            <p className="movies-card-article__subtitle">{duration(props.data.duration)}</p>
+            <h2 className="movies-card-article__title">{props.nameRU}</h2>
+            <p className="movies-card-article__subtitle">{duration(props.duration)}</p>
           </div>
-          <div className="movies-card-article__favorite-button" onClick={savedClick}>
-            <img className={savedClass} src={savedIcon} alt="Добавить в избранное" />
-          </div>
+          {props.isSaved
+            ? <button
+              className="movies-card-article__favorite-button movies-card-article__favorite-button-saved"
+              type="button"
+              onClick={handleDeleteClick}
+              aria-label="Удалить из избранного"
+            >
+            </button>
+            : <button
+              className={`movies-card-article__favorite-button ${isLiked ? 'movies-card-article__favorite-button-saved' : 'movies-card-article__favorite-button'}`}
+              type="button"
+              onClick={handleLikeClick}
+              aria-label="Добавить в избранное"
+            >
+            </button>
+          }
         </div>
         <div className="movies-card-article__image-section">
-          <a href="#" target="_blank">
-            <img className="movies-card-article__image" src={props.data.image} alt={`фото ${props.data.nameRU}`} />
-          </a>
+          <img
+            className="movies-card-article__image"
+            src={props.image}
+            alt={`фото ${props.nameRU}`}
+            onClick={handleClick}
+          />
         </div>
       </article>
     </li>

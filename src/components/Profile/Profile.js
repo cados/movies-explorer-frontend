@@ -1,17 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Profile.css';
-import { useFormWithValidation } from '../../utils/FormValidator';
+import useFormWithValidation from '../../utils/FormValidator';
+import { currentUserContext } from '../context/CurrentUserContext';
 
-function Profile({ currentUser, onSignOut, onUpdateUser }) {
+function Profile(props) {
+  const currentUser = React.useContext(currentUserContext);
   const validator = useFormWithValidation();
 
   function handleSubmit(e) {
     e.preventDefault();
-    onUpdateUser({
+    props.onUpdateUser({
       name: 'name' in validator.values ? validator.values.name : currentUser.name,
       email: 'email' in validator.values ? validator.values.email : currentUser.email,
     });
+  }
+
+  function handleLogOut() {
+    localStorage.clear();
+    props.onLogOut(false);
   }
 
   return (
@@ -21,6 +28,7 @@ function Profile({ currentUser, onSignOut, onUpdateUser }) {
           className="profile__form"
           onReset={validator.resetForm}
           onSubmit={handleSubmit}
+          noValidate
         >
           <h1 className="profile__title">{`Привет, ${currentUser.name}!`}</h1>
           <fieldset className="profile-form__fieldset">
@@ -33,14 +41,16 @@ function Profile({ currentUser, onSignOut, onUpdateUser }) {
                   name="name"
                   minLength="1"
                   maxLength="30"
-                  pattern="^[a-zA-Zа-яА-Я\-\s]*$"
+                  pattern="^[а-яА-ЯёЁa-zA-Z0-9]+$"
                   required
                   defaultValue={currentUser.name}
                   onChange={validator.handleChange}
                 />
               </label>
             </div>
-            <p className={`form__error ${validator.errors.name && validator.errors.name.length > 0 && 'form__error_active'}`}> {validator.errors.name} </p>
+            <span
+              className={`form__error ${validator.errors.name && validator.errors.name.length > 0 && 'form__error_active'}`}> {validator.errors.name}
+            </span>
             <div className="profile-form__input-container">
               <label className="profile-form__input-label">Почта
                 <input
@@ -54,23 +64,29 @@ function Profile({ currentUser, onSignOut, onUpdateUser }) {
                   onChange={validator.handleChange}
                 />
               </label>
-              <p className={`form__error ${validator.errors.email && validator.errors.email.length > 0 && 'form__error_active'}`}
+              <span className={`form__error ${validator.errors.email && validator.errors.email.length > 0 && 'form__error_active'}`}
               >{validator.errors.email}
-              </p>
+              </span>
             </div>
           </fieldset>
           <div className="profile-form__container">
             <button
               className="profile-edit-button"
               disabled={!validator.isValid}
-              type="submit">Редактировать
+              type="submit">
+              Редактировать
             </button>
-            <Link to="/" onClick={onSignOut} className="profile-edit-button profile-edit-button_error">Выйти из аккаунта</Link>
+            <Link
+              to="/signin"
+              onClick={handleLogOut}
+              className="profile-edit-button profile-edit-button_error"
+            >
+              Выйти из аккаунта
+            </Link>
           </div>
         </form>
       </section>
     </>
   );
 }
-
 export default Profile;

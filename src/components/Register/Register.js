@@ -1,15 +1,15 @@
 import React from 'react';
 import './Register.css';
 import { Link } from 'react-router-dom';
-import { useFormWithValidation } from '../../utils/FormValidator';
+import useFormWithValidation from '../../utils/FormValidator';
 import logo from '../../images/logo.svg';
 
-function Register({ onRegister }) {
+function Register(props) {
   const validator = useFormWithValidation();
   function handleSubmit(event) {
     event.preventDefault();
-    onRegister(validator.values.name, validator.values.email, validator.values.password);
-    event.target.parentNode.reset();
+    props.onRegister(validator.values.name, validator.values.email, validator.values.password);
+    event.target.reset();
   }
 
   return (
@@ -22,6 +22,7 @@ function Register({ onRegister }) {
             className="form"
             onSubmit={handleSubmit}
             onReset={validator.resetForm}
+            noValidate
           >
             <label className="form__label">Имя
               <input
@@ -31,28 +32,30 @@ function Register({ onRegister }) {
                 id="name"
                 minLength="2"
                 maxLength="30"
-                pattern="^[a-zA-Zа-яА-Я\-\s]*$"
+                pattern="^[а-яА-ЯёЁa-zA-Z0-9]+$"
                 required
+                autoComplete="off"
                 placeholder="Введите имя"
                 onChange={validator.handleChange}
               />
             </label>
-            <p className={`form__error ${!validator.isValid && 'form__error_active'}`}
-            >{validator.errors.name} </p>
+            <span className={`form__error ${!validator.isValid && 'form__error_active'}`}
+            >{validator.errors.name}</span>
             <label className="form__label">E-mail
               <input
                 className="form__input"
                 type="text"
                 name="email"
                 id="email"
+                autoComplete="off"
                 placeholder="Введите email"
                 required
                 pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                 onChange={validator.handleChange}
               />
             </label>
-            <p className={`form__error ${!validator.isValid && 'form__error_active'}`}
-            >{validator.errors.email}</p>
+            <span className={`form__error ${!validator.isValid && 'form__error_active'}`}
+            >{validator.errors.email}</span>
             <label className="form__label">
               Пароль
               <input
@@ -60,6 +63,7 @@ function Register({ onRegister }) {
                 type="password"
                 name="password"
                 id="password"
+                autoComplete="off"
                 placeholder="Введите пароль"
                 minLength="5"
                 maxLength="10"
@@ -67,13 +71,21 @@ function Register({ onRegister }) {
                 onChange={validator.handleChange}
               />
             </label>
-            <p className={`form__error ${!validator.isValid && 'form__error_active'}`}
-            >{validator.errors.password}</p>
+            <span className={`form__error ${!validator.isValid && 'form__error_active'}`}
+            >{validator.errors.password}</span>
+            {props.errorMessage
+              ? <span
+                className='register__error register__error_active'>
+                {props.errorMessage}
+              </span>
+              : <span
+                className='register__error'>
+              </span>
+            }
             <button
               className="form__button"
               type="submit"
               disabled={!validator.isValid}
-              onClick={handleSubmit}
             >
               Зарегистрироваться
             </button>

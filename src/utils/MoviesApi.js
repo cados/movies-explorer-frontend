@@ -1,18 +1,28 @@
 class MoviesApi {
   constructor(config) {
-    this.url = config.url;
-    this.headers = config.headers;
+    this._url = config.url;
+    this._headers = config.headers;
   }
 
+  // _responseResult(res) {
+  //   if (res.ok) {
+  //     return res.json();
+  //   }
+  //   return Promise.reject(new Error(`Ошибка: ${res.status}`));
+  // }
   _responseResult(res) {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(new Error(`Ошибка: ${res.status}`));
+    return res.json()
+      .then((json) => {
+        if (!res.ok) {
+          throw json;
+        }
+        return json;
+      });
   }
 
   getInitialMovies() {
-    return fetch(`${this.url}`, { headers: this.headers })
+    return fetch(`${this._url}`,
+      { headers: this._headers })
       .then(this._responseResult);
   }
 }

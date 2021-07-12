@@ -33,6 +33,11 @@
   transition: .3s ease;
 }
 
+.search__button:disabled{
+  opacity: .5;
+  transition: none;
+}
+
 .search__icon{
   border:1px solid #E8E8E8;
   border-radius:48px;

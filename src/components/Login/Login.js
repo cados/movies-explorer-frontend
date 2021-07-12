@@ -1,15 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useFormWithValidation } from '../../utils/FormValidator';
+import useFormWithValidation from '../../utils/FormValidator';
 import logo from '../../images/logo.svg';
 
-function Login({ onLogin }) {
+function Login(props) {
   const validator = useFormWithValidation();
 
   function handleSubmit(event) {
     event.preventDefault();
-    onLogin(validator.values.email, validator.values.password);
-    event.target.parentNode.reset();
+    props.onLogin(validator.values.email, validator.values.password);
+    event.target.reset();
   }
   return (
     <>
@@ -19,9 +19,10 @@ function Login({ onLogin }) {
           <h1 className="register__title">Рады видеть!</h1>
           <form
             className="form"
-            action="post"
             onSubmit={handleSubmit}
             onReset={validator.resetForm}
+            noValidate
+            action="post"
           >
             <label className="form__label">E-mail
               <input
@@ -29,6 +30,7 @@ function Login({ onLogin }) {
                 type="text"
                 name="email"
                 id="email"
+                autoComplete="off"
                 placeholder="Введите email"
                 minLength="2"
                 maxLength="30"
@@ -38,8 +40,8 @@ function Login({ onLogin }) {
               />
             </label>
             {
-              <p className={`form__error ${!validator.isValid && 'form__error_active'}`}
-              >{validator.errors.email}  </p>
+              <span className={`form__error ${!validator.isValid && 'form__error_active'}`}
+              >{validator.errors.email}</span>
             }
             <label className="form__label">Пароль
               <input
@@ -47,6 +49,7 @@ function Login({ onLogin }) {
                 type="password"
                 name="password"
                 id="password"
+                autoComplete="off"
                 placeholder="Введите пароль"
                 minLength="5"
                 maxLength="10"
@@ -55,15 +58,24 @@ function Login({ onLogin }) {
               />
             </label>
             {
-              <p className={`form__error ${!validator.isValid && 'form__error_active'}`}
-              >{validator.errors.password}</p>
+              <span className={`form__error ${!validator.isValid && 'form__error_active'}`}
+              >{validator.errors.password}</span>
             }
+            {props.errorMessage
+              ? <span
+                className='register__error register__error_active'>
+                {props.errorMessage}
+              </span>
+              : <span className='register__error'></span>
+            }
+
             <button
               className="form__button"
               type="submit"
               disabled={!validator.isValid}
-              onClick={handleSubmit}
-            >Войти</button>
+            >
+              Войти
+            </button>
             <p className="register__text">
               Ещё не зарегистрированы?
               <Link to="/signup" className="register__link">Регистрация</Link>

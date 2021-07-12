@@ -4,7 +4,7 @@ import {
   Route, Switch, Redirect, useRouteMatch, useHistory,
 } from 'react-router-dom';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import CurrentUserContext from '../contexts/CurrentUserContext';
+import { currentUserContext } from '../context/CurrentUserContext';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
@@ -19,7 +19,7 @@ import mainApi from '../../utils/MainApi';
 
 function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
-  const [currentUser, setCurrentUser] = React.useState({});
+  const [currentUser, setCurrentUser] = React.useState('');
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState('');
 
@@ -34,97 +34,81 @@ function App() {
     setIsInfoTooltipOpen(true);
   }
 
-  // const handleSignUp = () => {
-  //   localStorage.setItem('logginIn', 'true');
-  //   setLoggedIn(true);
-  // };
-
-  const handleSignOut = () => {
-    localStorage.removeItem('logginIn');
-    localStorage.removeItem('jwt');
-    setLoggedIn(false);
-  };
-
-  const checkToken = () => {
-    const token = localStorage.getItem('jwt');
-    if (token) {
-      mainApi.checkToken(token)
-        .then((res) => {
-          if (res._id) {
-            setCurrentUser(res);
-            setLoggedIn(true);
-          } else {
-            showPopupError(res);
-          }
-        })
-        .catch((err) => showPopupError(err));
+  function showError(error) {
+    if (error.message) {
+      setErrorMessage(error.message);
+    } else {
+      setErrorMessage(error.validation.body.message);
     }
-  };
+  }
 
-  function handleSignIn(email, password) {
-    mainApi.authorize({
-      email,
-      password,
-    })
-      .then((res) => {
-        localStorage.setItem('jwt', res.token);
+  React.useEffect(() => {
+    const tockenCheck = () => {
+      const token = localStorage.getItem('token');
+      if (token) {
+        mainApi.checkToken(token)
+          .then(() => {
+            setLoggedIn(true);
+            history.push('/movies');
+          })
+          .catch((error) => {
+            showPopupError(error);
+            history.push('/signin');
+          });
+      }
+    };
+    tockenCheck();
+  }, [history]);
+
+  React.useEffect(() => {
+    if (loggedIn) {
+      mainApi.getUserData()
+        .then((userData) => {
+          setCurrentUser(userData);
+        })
+        .catch((error) => {
+          showPopupError(error);
+        });
+    }
+  }, [loggedIn]);
+
+  function onLogin(email, password) {
+    mainApi.authorize(email, password)
+      .then(() => {
         setLoggedIn(true);
         history.push('/movies');
       })
-      .then(() => {
-        checkToken();
+      .catch((error) => {
+        showError(error);
       })
-      .catch((err) => showPopupError(err));
+      .finally(setErrorMessage(''));
   }
-
-  // const handleSignin = (data) => {
-  //   setIsLoadingSignin(true);
-  //   mainApi.authorize(data)
-  //     .then((res) => {
-  //       setAuthResStatus(res.status);
-  //       localStorage.setItem('jwt', res.data.token);
-  //       setLoggedIn(true);
-  //       history.push('/movies');
-  //       setOpenNotificationModal();
-  //       setNotificationText(AUTH_SUCCESS_TEXTS.BASE_TEXT);
-  //     })
-  //     .then(() => {
-  //       checkToken();
-  //     })
-  //     .catch((err) => {
-  //       setAuthResStatus(err);
-  //     })
-  //     .finally(() => {
-  //       setIsLoadingSignin(false);
-  //     })
-  // };
-
-  function handleRegister(name, email, password) {
+  function onRegister(name, email, password) {
     mainApi.register(name, email, password)
       .then(() => {
-        handleSignIn(email, password);
+        history.push('/movies');
+      })
+      .then(() => {
+        onLogin(email, password);
+      })
+      .catch((error) => {
+        showError(error);
+      });
+  }
+
+  function handleUpdateUser(userData) {
+    mainApi.updateUser(userData)
+      .then((newUserData) => {
+        setCurrentUser(newUserData);
       })
       .catch((error) => {
         showPopupError(error);
-        history.push('/signup');
       });
   }
 
-  const handleUpdateUser = (data) => {
-    const token = localStorage.getItem('jwt');
-    mainApi.updateUser(data, token)
-      .then((res) => {
-        setCurrentUser(res);
-      });
-  };
-
-  const infoTooltipClose = () => {
+  function closePopup() {
     setIsInfoTooltipOpen(false);
-  };
-
-  React.useEffect(() => {
-    checkToken();
-  }, [loggedIn]);
+  }
 
   const routesPathsHeaderArray = [
     '/signin',
@@ -147,7 +131,7 @@ function App() {
         />
       )}
       <>
-        <CurrentUserContext.Provider value={{ currentUser, setCurrentUser }}>
+        <currentUserContext.Provider value={currentUser}>
           <Switch>
             <Route exact path="/">
               <Main />
@@ -157,20 +141,22 @@ function App() {
               loggedIn={loggedIn}
               path="/movies"
               component={Movies}
+              showError={showPopupError}
             />
             <ProtectedRoute
               exact
               path="/saved-movies"
               loggedIn={loggedIn}
               component={SavedMovies}
+              showError={showPopupError}
             />
             <Route exact path="/signup">
               {
                 loggedIn
                   ? <Redirect to='/movies' />
                   : <Registration
-                    onLogin={handleSignIn}
-                    onRegister={handleRegister}
+                    onRegister={onRegister}
+                    errorMessage={errorMessage}
                   />
               }
             </Route>
@@ -179,8 +165,8 @@ function App() {
                 loggedIn
                   ? <Redirect to="/movies" />
                   : <Login
-                    // logo={logo}
-                    onLogin={handleSignIn}
+                    onLogin={onLogin}
+                    errorMessage={errorMessage}
                   />
               }
             </Route>
@@ -189,9 +175,8 @@ function App() {
               path="/profile"
               loggedIn={loggedIn}
               component={Profile}
-              onSignOut={handleSignOut}
+              onLogOut={setLoggedIn}
               onUpdateUser={handleUpdateUser}
-              currentUser={currentUser}
             />
             <Route exact path="/404">
               <NotFound />
@@ -202,10 +187,10 @@ function App() {
               <Redirect to="/404" />
             </Route>
           </Switch>
-        </CurrentUserContext.Provider>
+        </currentUserContext.Provider>
         <InfoTooltip
           isOpen={isInfoTooltipOpen}
-          onClose={infoTooltipClose}
+          onClose={closePopup}
           errorMessage={errorMessage}
         />
       </>

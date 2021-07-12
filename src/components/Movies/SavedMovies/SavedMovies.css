@@ -20,6 +20,7 @@
   object-fit: cover;
   width: 364px;
   height: 203px;
+  cursor: pointer;
 }
 
 .movies-card-article__header{
@@ -58,4 +59,5 @@
 
 .movies-card-article__favorite-button-saved{
   background: url(../../../images/savedIcon.svg);
+  transition: .5s ease;
 }

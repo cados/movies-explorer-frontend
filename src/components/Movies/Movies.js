@@ -61,17 +61,14 @@ function Movies(props) {
       .then((movies) => {
         const filterItems = filterFilms(movies, query, isShortMovie);
         const adaptItems = adaptObject(filterItems);
-
         const moviesToShow = [];
         for (let i = 0; i < (Math.min(adaptItems.length, amountMoviesToShow)); i += 1) {
           const isMovieLiked = likedMovies.filter((el) => el.movieId === adaptItems[i].movieId);
           moviesToShow.push({ ...adaptItems[i], isLiked: isMovieLiked.length > 0 });
         }
-
         setFilterMovies(adaptItems);
         setVisibleMovies(moviesToShow);
         localStorage.setItem('storedMovies', JSON.stringify(adaptItems));
-
         setIsLoading(false);
       })
       .catch(() => {

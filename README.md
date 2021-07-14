@@ -6,8 +6,8 @@
 
 **адрес домена сервера:**
 
-`cados-cinema.students.nomoredomains.icu`
-Публичный IP адресс - 178.154.192.56
+`cados-cinema.students.nomoredomains.work`
+Публичный IP адресс - 80.89.229.122
 
 ## Инструкция по установке
 

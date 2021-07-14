@@ -1,7 +1,8 @@
 import React from 'react';
 import './MoviesCardList.css';
-import { v4 as uuidv4 } from 'uuid';
 import MoviesCard from '../MoviesCard/MoviesCard';
+
+const uniqid = require('uniqid');
 
 function MoviesCardList(props) {
   return (
@@ -11,7 +12,7 @@ function MoviesCardList(props) {
         : <ul className="movies__card-list">
           {props.movies.map(({ ...rest }) => (
             <MoviesCard
-              key={uuidv4()}
+              key={uniqid()}
               {...rest}
               onMovieLike={props.onMovieLike}
               onMovieDislike={props.onMovieDislike}

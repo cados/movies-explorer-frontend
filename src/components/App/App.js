@@ -83,6 +83,7 @@ function App() {
       })
       .finally(setErrorMessage(''));
   }
+
   function onRegister(name, email, password) {
     mainApi.register(name, email, password)
       .then(() => {

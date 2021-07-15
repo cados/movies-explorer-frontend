@@ -60,7 +60,7 @@ function MoviesCard(props) {
           </div>
           {props.isSaved
             ? <button
-              className="movies-card-article__favorite-button movies-card-article__favorite-button-saved"
+              className="movies-card-article__favorite-button movies-card-article__favorite-button-remove"
               type="button"
               onClick={handleDeleteClick}
               aria-label="Удалить из избранного"

@@ -25,7 +25,7 @@ function App() {
 
   const history = useHistory();
 
-  function showPopupError(error) {
+  function showInfoPopup(error) {
     if (error.message) {
       setErrorMessage(error.message);
     } else {
@@ -52,7 +52,7 @@ function App() {
             history.push('/movies');
           })
           .catch((error) => {
-            showPopupError(error);
+            showInfoPopup(error);
             history.push('/signin');
           });
       }
@@ -67,7 +67,7 @@ function App() {
           setCurrentUser(userData);
         })
         .catch((error) => {
-          showPopupError(error);
+          showInfoPopup(error);
         });
     }
   }, [loggedIn]);
@@ -100,10 +100,11 @@ function App() {
   function handleUpdateUser(userData) {
     mainApi.updateUser(userData)
       .then((newUserData) => {
+        showInfoPopup({ message: 'Профиль успешно обновлен' });
         setCurrentUser(newUserData);
       })
       .catch((error) => {
-        showPopupError(error);
+        showInfoPopup(error);
       });
   }
 
@@ -142,14 +143,14 @@ function App() {
               loggedIn={loggedIn}
               path="/movies"
               component={Movies}
-              showError={showPopupError}
+              showError={showInfoPopup}
             />
             <ProtectedRoute
               exact
               path="/saved-movies"
               loggedIn={loggedIn}
               component={SavedMovies}
-              showError={showPopupError}
+              showError={showInfoPopup}
             />
             <Route exact path="/signup">
               {

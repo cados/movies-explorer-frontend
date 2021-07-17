@@ -7,7 +7,7 @@ function InfoTooltip(props) {
       <div onClick={props.onClose} className="infotooltip__overlay"></div>
       <div className="infotooltip__container">
         <button onClick={props.onClose} className="infotooltip__close" type="button" />
-        <h2 className="infotooltip__text">Error: {props.errorMessage}</h2>
+        <h2 className="infotooltip__text">{props.errorMessage}</h2>
       </div>
     </div>
   );

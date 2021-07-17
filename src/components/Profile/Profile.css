@@ -86,3 +86,9 @@
 
 }
 
+@media screen and (max-width: 500px){
+  .profile-form__fieldset{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+}

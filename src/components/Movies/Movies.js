@@ -90,6 +90,10 @@ function Movies(props) {
   function handleMovieDislike(movie) {
     const movieToDelete = likedMovies.filter((el) => el.movieId === movie.movieId);
     mainApi.dislikeMovie(movieToDelete[0]._id)
+      .then((newMovie) => {
+        const arr = likedMovies.filter((el) => el._id !== newMovie._id);
+        setLikedMovies(arr);
+      })
       .catch((error) => props.showError(error));
   }
 

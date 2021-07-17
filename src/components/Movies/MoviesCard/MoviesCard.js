@@ -2,29 +2,29 @@ import React from 'react';
 import './MoviesCard.css';
 
 function MoviesCard(props) {
-  const [isLiked, setIsLiked] = React.useState(props.isLiked);
+  const [isLiked, setIsLiked] = React.useState(props.data.isLiked);
   React.useEffect(() => {
-    setIsLiked(props.isLiked);
-  }, [props.isLiked]);
+    setIsLiked(props.data.isLiked);
+  }, [props.data.isLiked]);
 
   function handleLikeClick() {
     if (isLiked) {
       setIsLiked(false);
-      props.onMovieDislike(props);
+      props.onMovieDislike(props.data);
     } else {
       setIsLiked(true);
       props.onMovieLike({
-        country: props.country || 'не указано',
-        director: props.director || 'не указано',
-        duration: props.duration || 'не указано',
-        description: props.description || 'не указано',
-        image: props.image || 'https://images.unsplash.com/photo-1588066801004-3d2a8ef323d7',
-        trailer: props.trailer || 'https://www.youtube.com',
-        nameRU: props.nameRU || 'не указано',
-        nameEN: props.nameEN || 'не указано',
-        movieId: props.movieId,
-        thumbnail: props.thumbnail,
-        year: props.year,
+        country: props.data.country || 'не указано',
+        director: props.data.director || 'не указано',
+        duration: props.data.duration || 'не указано',
+        description: props.data.description || 'не указано',
+        image: props.data.image || 'https://images.unsplash.com/photo-1588066801004-3d2a8ef323d7',
+        trailer: props.data.trailer || 'https://www.youtube.com',
+        nameRU: props.data.nameRU || 'не указано',
+        nameEN: props.data.nameEN || 'не указано',
+        movieId: props.data.movieId,
+        thumbnail: props.data.thumbnail,
+        year: props.data.year,
       });
     }
   }
@@ -34,8 +34,8 @@ function MoviesCard(props) {
   }
 
   function handleClick() {
-    if (props.trailer !== '') {
-      window.open(props.trailer);
+    if (props.data.trailer !== '') {
+      window.open(props.data.trailer);
     }
   }
 
@@ -55,8 +55,8 @@ function MoviesCard(props) {
       <article className="movies-card-article">
         <div className="movies-card-article__header">
           <div className="movies-card-article__text-container">
-            <h2 className="movies-card-article__title">{props.nameRU}</h2>
-            <p className="movies-card-article__subtitle">{duration(props.duration)}</p>
+            <h2 className="movies-card-article__title">{props.data.nameRU}</h2>
+            <p className="movies-card-article__subtitle">{duration(props.data.duration)}</p>
           </div>
           {props.isSaved
             ? <button
@@ -78,8 +78,8 @@ function MoviesCard(props) {
         <div className="movies-card-article__image-section">
           <img
             className="movies-card-article__image"
-            src={props.image}
-            alt={`фото ${props.nameRU}`}
+            src={props.data.image}
+            alt={`фото ${props.data.nameRU}`}
             onClick={handleClick}
           />
         </div>

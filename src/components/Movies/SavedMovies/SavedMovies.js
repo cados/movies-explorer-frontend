@@ -24,7 +24,7 @@ function SavedMovies(props) {
   }
 
   function handleMovieDelete(movie) {
-    mainApi.dislikeMovie(movie._id)
+    mainApi.dislikeMovie(movie.data._id)
       .then((movieId) => {
         const arr = savedMovies.filter((el) => el._id !== movieId._id);
         setSavedMovies(arr);

@@ -38,7 +38,7 @@ class MainApi {
     return fetch(`${this._url}/users/me`, {
       method: 'GET',
       headers: {
-        ...this.headers,
+        ...this._headers,
         Authorization: `Bearer ${token}`,
       },
     }).then((res) => this._responseResult(res));

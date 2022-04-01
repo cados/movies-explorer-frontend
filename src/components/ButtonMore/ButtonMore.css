@@ -1,0 +1,14 @@
+.button_more {
+  width: 100%;
+  min-height: 36px;
+  margin: 50px 0 80px 0;
+  border-radius: 6px;
+  background-color: #F9F9F9;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  color: #000;
+  border:none;
+  cursor: pointer;
+}

@@ -36,6 +36,7 @@
   line-height:13px;
   font-weight: 500;
   width: 100%;
+  margin-top: 10px;
 }
 
 .profile-form__input{
@@ -65,7 +66,7 @@
   font-weight:400;
   background: #fff;
   cursor: pointer;
-  transition: opacity .3s ease;
+
 }
 
 .profile-edit-button_error{
@@ -75,11 +76,19 @@
   text-align: center;
 }
 
+.profile-edit-button_error:hover{
+  opacity: .5;
+  transition: .3s ease-in-out;
+}
+
 .profile-edit-button:not(:last-child){
   margin-bottom: 16px;
 
 }
 
-.profile-edit-button:hover{
-  opacity: .5;
+@media screen and (max-width: 500px){
+  .profile-form__fieldset{
+    padding-left: 10px;
+    padding-right: 10px;
+}
 }

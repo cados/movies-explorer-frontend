@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 import useFormWithValidation from '../../utils/FormValidator';
 import logo from '../../images/logo.svg';
 
-function Register(props) {
+function Register({ onRegister, errorMessage }) {
   const validator = useFormWithValidation();
   function handleSubmit(event) {
     event.preventDefault();
-    props.onRegister(validator.values.name, validator.values.email, validator.values.password);
+    onRegister(validator.values.name, validator.values.email, validator.values.password);
     event.target.reset();
   }
 
@@ -77,12 +77,12 @@ function Register(props) {
           <span className={`form__error ${!validator.isValid && 'form__error_active'}`}>
             {validator.errors.password}
           </span>
-          {props.errorMessage
+          {errorMessage
             ? (
               <span
                 className="register__error register__error_active"
               >
-                {props.errorMessage}
+                {errorMessage}
               </span>
             )
             : (

@@ -59,21 +59,22 @@ function MoviesCard(props) {
             <p className="movies-card-article__subtitle">{duration(props.data.duration)}</p>
           </div>
           {props.isSaved
-            ? <button
-              className="movies-card-article__favorite-button movies-card-article__favorite-button-remove"
-              type="button"
-              onClick={handleDeleteClick}
-              aria-label="Удалить из избранного"
-            >
-            </button>
-            : <button
-              className={`movies-card-article__favorite-button ${isLiked ? 'movies-card-article__favorite-button-saved' : 'movies-card-article__favorite-button'}`}
-              type="button"
-              onClick={handleLikeClick}
-              aria-label="Добавить в избранное"
-            >
-            </button>
-          }
+            ? (
+              <button
+                className="movies-card-article__favorite-button movies-card-article__favorite-button-remove"
+                type="button"
+                onClick={handleDeleteClick}
+                aria-label="Удалить из избранного"
+              />
+            )
+            : (
+              <button
+                className={`movies-card-article__favorite-button ${isLiked ? 'movies-card-article__favorite-button-saved' : 'movies-card-article__favorite-button'}`}
+                type="button"
+                onClick={handleLikeClick}
+                aria-label="Добавить в избранное"
+              />
+            )}
         </div>
         <div className="movies-card-article__image-section">
           <img

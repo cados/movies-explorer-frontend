@@ -116,16 +116,17 @@ function Movies(props) {
       {
         isLoading
           ? <Preloader />
-          : <MoviesCardList
-            movies={visibleMovies}
-            onMovieLike={handleMovieLike}
-            onMovieDislike={handleMovieDislike}
-            isSaved={false}
-          />
+          : (
+            <MoviesCardList
+              movies={visibleMovies}
+              onMovieLike={handleMovieLike}
+              onMovieDislike={handleMovieDislike}
+              isSaved={false}
+            />
+          )
       }
       {filterMovies.length > visibleMovies.length
-        && <ButtonMore onClick={handleButtonMoreClick} />
-      }
+        && <ButtonMore onClick={handleButtonMoreClick} />}
     </section>
   );
 }

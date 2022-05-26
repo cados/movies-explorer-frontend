@@ -18,23 +18,26 @@ function AboutMe() {
             it я никогда не отходил.
             Все время занимался фрилансом и саморазвитием. После того, как прошёл курс
             по веб-разработке я начинаю
-            свой новый путь в качестве фронтенд разработчика.</p>
+            свой новый путь в качестве фронтенд разработчика.
+          </p>
           <a
             className="aboutMe__link"
             href="https://github.com/cados"
-            target="_blank" rel="noreferrer"
+            target="_blank"
+            rel="noreferrer"
           >
             Github
           </a>
           <a
             className="aboutMe__link"
             href="https://facebook.com/"
-            target="_blank" rel="noreferrer"
+            target="_blank"
+            rel="noreferrer"
           >
             Facebook
           </a>
         </div>
-        <img className="aboutMe__image" src={photo} alt="фото"></img>
+        <img className="aboutMe__image" src={photo} alt="фото" />
       </div>
       <h5 className="aboutMe__portfolio-title">Портфолио</h5>
       <ul className="aboutMe__portfolio-list">
@@ -42,7 +45,8 @@ function AboutMe() {
           <a
             className="aboutMe__portfolio-link"
             href="https://github.com/cados/russian-travel"
-            target="_blank" rel="noreferrer"
+            target="_blank"
+            rel="noreferrer"
           >
             <p className="aboutMe__portfolio-text">Статичный сайт</p>
             <span>&#8599;</span>
@@ -52,7 +56,8 @@ function AboutMe() {
           <a
             className="aboutMe__portfolio-link"
             href="https://github.com/cados/russian-travel"
-            target="_blank" rel="noreferrer"
+            target="_blank"
+            rel="noreferrer"
           >
             <p className="aboutMe__portfolio-text">Адаптивный сайт</p>
             <span>&#8599;</span>
@@ -62,7 +67,8 @@ function AboutMe() {
           <a
             className="aboutMe__portfolio-link"
             href="https://github.com/cados/russian-travel"
-            target="_blank" rel="noreferrer"
+            target="_blank"
+            rel="noreferrer"
           >
             <p className="aboutMe__portfolio-text">Одностраничное приложение</p>
             <span>&#8599;</span>

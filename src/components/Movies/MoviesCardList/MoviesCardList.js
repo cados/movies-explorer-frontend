@@ -7,18 +7,20 @@ function MoviesCardList(props) {
     <>
       {props.movies.length === 0
         ? <p className="movies-notfound">Ничего не найдено</p>
-        : <ul className="movies__card-list">
-          {props.movies.map((movie) => (
-            <MoviesCard
-              key={movie.movieId}
-              data={movie}
-              onMovieLike={props.onMovieLike}
-              onMovieDislike={props.onMovieDislike}
-              onMovieDelete={props.onMovieDelete}
-              isSaved={props.isSaved}
-            />))}
-        </ul>
-      }
+        : (
+          <ul className="movies__card-list">
+            {props.movies.map((movie) => (
+              <MoviesCard
+                key={movie.movieId}
+                data={movie}
+                onMovieLike={props.onMovieLike}
+                onMovieDislike={props.onMovieDislike}
+                onMovieDelete={props.onMovieDelete}
+                isSaved={props.isSaved}
+              />
+            ))}
+          </ul>
+        )}
     </>
   );
 }

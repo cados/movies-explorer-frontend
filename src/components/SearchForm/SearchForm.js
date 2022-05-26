@@ -25,7 +25,7 @@ function SearchForm(props) {
           onSubmit={handleSubmit}
           onReset={validator.resetForm}
         >
-          <img className="search__icon" src={icon} title="search"></img>
+          <img className="search__icon" src={icon} title="search" />
           <input
             className="search__title"
             name="filmSearch"
@@ -45,7 +45,8 @@ function SearchForm(props) {
         </form>
       </div>
       <span
-        className={`search__error ${validator.errors.filmSearch && validator.errors.filmSearch.length > 0 && 'search__error_active'}`}>
+        className={`search__error ${validator.errors.filmSearch && validator.errors.filmSearch.length > 0 && 'search__error_active'}`}
+      >
         Нужно ввести ключевое слово
       </span>
       <div className="checkbox">

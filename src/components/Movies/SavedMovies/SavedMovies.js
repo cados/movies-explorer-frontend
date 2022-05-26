@@ -40,7 +40,7 @@ function SavedMovies(props) {
       />
       <MoviesCardList
         movies={moviesToShow}
-        isSaved={true}
+        isSaved
         onMovieDelete={handleMovieDelete}
       />
     </section>

@@ -23,7 +23,7 @@ function Register(props) {
           onReset={validator.resetForm}
           noValidate
         >
-          <label className="form__label">
+          <label htmlFor="name" className="form__label">
             Имя
             <input
               className="form__input"
@@ -42,7 +42,7 @@ function Register(props) {
           <span className={`form__error ${!validator.isValid && 'form__error_active'}`}>
             {validator.errors.name}
           </span>
-          <label className="form__label">
+          <label htmlFor="email" className="form__label">
             E-mail
             <input
               className="form__input"
@@ -59,7 +59,7 @@ function Register(props) {
           <span className={`form__error ${!validator.isValid && 'form__error_active'}`}>
             {validator.errors.email}
           </span>
-          <label className="form__label">
+          <label htmlFor="password" className="form__label">
             Пароль
             <input
               className="form__input"

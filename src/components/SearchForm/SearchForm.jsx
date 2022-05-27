@@ -25,7 +25,7 @@ function SearchForm({ searchCallBack }) {
           onSubmit={handleSubmit}
           onReset={validator.resetForm}
         >
-          <img className="search__icon" src={icon} title="search" />
+          <img className="search__icon" src={icon} title="search" alt="search" />
           <input
             className="search__title"
             name="filmSearch"

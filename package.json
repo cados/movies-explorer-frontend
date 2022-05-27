@@ -19,6 +19,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "lint": "./node_modules/.bin/eslint ./src --fix",
     "deploy": "scp -r ./build/* cados@80.89.229.122:/home/cados/doc/movies-explorer-frontend/build"
   },
   "eslintConfig": {

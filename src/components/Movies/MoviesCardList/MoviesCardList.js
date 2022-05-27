@@ -2,21 +2,21 @@ import React from 'react';
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-function MoviesCardList(props) {
+function MoviesCardList({ movies, onMovieLike, onMovieDislike, onMovieDelete, isSaved }) {
   return (
     <>
-      {props.movies.length === 0
+      {movies.length === 0
         ? <p className="movies-notfound">Ничего не найдено</p>
         : (
           <ul className="movies__card-list">
-            {props.movies.map((movie) => (
+            {movies.map((movie) => (
               <MoviesCard
                 key={movie.movieId}
                 data={movie}
-                onMovieLike={props.onMovieLike}
-                onMovieDislike={props.onMovieDislike}
-                onMovieDelete={props.onMovieDelete}
-                isSaved={props.isSaved}
+                onMovieLike={onMovieLike}
+                onMovieDislike={onMovieDislike}
+                onMovieDelete={onMovieDelete}
+                isSaved={isSaved}
               />
             ))}
           </ul>

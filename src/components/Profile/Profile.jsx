@@ -4,13 +4,13 @@ import './Profile.css';
 import useFormWithValidation from '../../utils/FormValidator';
 import { currentUserContext } from '../context/CurrentUserContext';
 
-function Profile(props) {
+function Profile({ onUpdateUser, onLogOut }) {
   const currentUser = React.useContext(currentUserContext);
   const validator = useFormWithValidation();
 
   function handleSubmit(e) {
     e.preventDefault();
-    props.onUpdateUser({
+    onUpdateUser({
       name: 'name' in validator.values ? validator.values.name : currentUser.name,
       email: 'email' in validator.values ? validator.values.email : currentUser.email,
     });
@@ -18,7 +18,7 @@ function Profile(props) {
 
   function handleLogOut() {
     localStorage.clear();
-    props.onLogOut(false);
+    onLogOut(false);
   }
 
   return (

@@ -3,13 +3,13 @@ import './SearchForm.css';
 import icon from '../../images/icon_lupa.svg';
 import useFormWithValidation from '../../utils/FormValidator';
 
-function SearchForm(props) {
+function SearchForm({ searchCallBack }) {
   const [isChecked, setIsChecked] = React.useState(false);
   const validator = useFormWithValidation();
 
   function handleSubmit(event) {
     event.preventDefault();
-    props.searchCallBack(validator.values.filmSearch, isChecked);
+    searchCallBack(validator.values.filmSearch, isChecked);
     event.target.reset();
   }
 

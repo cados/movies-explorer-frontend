@@ -6,7 +6,7 @@ function MoviesCardList({
   movies, onMovieLike, onMovieDislike, onMovieDelete, isSaved,
 }) {
   return (
-    <>
+    <div>
       {movies.length === 0
         ? <p className="movies-notfound">Ничего не найдено</p>
         : (
@@ -23,7 +23,7 @@ function MoviesCardList({
             ))}
           </ul>
         )}
-    </>
+    </div>
   );
 }
 

@@ -1,7 +1,9 @@
 import React from 'react';
 import './InfoTooltip.css';
 
-function InfoTooltip({ isOpen, name, onClose, errorMessage }) {
+function InfoTooltip({
+  isOpen, name, onClose, errorMessage,
+}) {
   return (
     <div className={`infotooltip ${isOpen && 'infotooltip_opened'}`} id={name}>
       <div onClick={onClose} className="infotooltip__overlay" aria-hidden="true" />

@@ -23,7 +23,7 @@ function Login(props) {
           noValidate
           action="post"
         >
-          <label className="form__label">
+          <label className="form__label" htmlFor="email">
             E-mail
             <input
               className="form__input"
@@ -42,7 +42,7 @@ function Login(props) {
           <span className={`form__error ${!validator.isValid && 'form__error_active'}`}>
             {validator.errors.email}
           </span>
-          <label className="form__label">
+          <label className="form__label" htmlFor="password">
             Пароль
             <input
               className="form__input"

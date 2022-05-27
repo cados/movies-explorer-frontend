@@ -2,7 +2,9 @@ import React from 'react';
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-function MoviesCardList({ movies, onMovieLike, onMovieDislike, onMovieDelete, isSaved }) {
+function MoviesCardList({
+  movies, onMovieLike, onMovieDislike, onMovieDelete, isSaved,
+}) {
   return (
     <>
       {movies.length === 0

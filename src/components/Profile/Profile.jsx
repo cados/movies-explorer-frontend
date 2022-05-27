@@ -32,7 +32,7 @@ function Profile({ onUpdateUser, onLogOut }) {
         <h1 className="profile__title">{`Привет, ${currentUser.name}!`}</h1>
         <fieldset className="profile-form__fieldset">
           <div className="profile-form__input-container">
-            <label className="profile-form__input-label">
+            <label className="profile-form__input-label" htmlFor="name">
               {' '}
               Имя
               <input
@@ -56,7 +56,7 @@ function Profile({ onUpdateUser, onLogOut }) {
             {validator.errors.name}
           </span>
           <div className="profile-form__input-container">
-            <label className="profile-form__input-label">
+            <label className="profile-form__input-label" htmlFor="email">
               Почта
               <input
                 type="text"

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import './Profile.css';
 import useFormWithValidation from '../../utils/FormValidator';
 import { currentUserContext } from '../context/CurrentUserContext';
@@ -8,7 +7,7 @@ function Profile({ onUpdateUser, onLogOut }) {
   const currentUser = React.useContext(currentUserContext);
   const validator = useFormWithValidation();
 
-  function handleSubmit(e) {
+  function handleUpdateUser(e) {
     e.preventDefault();
     onUpdateUser({
       name: 'name' in validator.values ? validator.values.name : currentUser.name,
@@ -26,7 +25,7 @@ function Profile({ onUpdateUser, onLogOut }) {
       <form
         className="profile__form"
         onReset={validator.resetForm}
-        onSubmit={handleSubmit}
+        onSubmit={handleUpdateUser}
         noValidate
       >
         <h1 className="profile__title">{`Привет, ${currentUser.name}!`}</h1>
@@ -82,13 +81,13 @@ function Profile({ onUpdateUser, onLogOut }) {
           >
             Редактировать
           </button>
-          <Link
-            to="/signin"
-            onClick={handleLogOut}
+          <button
             className="profile-edit-button profile-edit-button_error"
+            onClick={handleLogOut}
+            type="submit"
           >
             Выйти из аккаунта
-          </Link>
+          </button>
         </div>
       </form>
     </section>

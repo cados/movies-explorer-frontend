@@ -11,7 +11,7 @@ import defineAmountMoviesToShow from '../../utils/defineAmountMoviesToShow';
 import defineIncrement from '../../utils/defineIncrement';
 import adaptObject from '../../utils/adaptObject';
 
-function Movies(props) {
+function Movies({ showError }) {
   const [filterMovies, setFilterMovies] = React.useState([]);
   const [visibleMovies, setVisibleMovies] = React.useState([]);
   const [likedMovies, setLikedMovies] = React.useState([]);
@@ -37,8 +37,8 @@ function Movies(props) {
       .then((movies) => {
         setLikedMovies(movies);
       })
-      .catch((error) => props.showError(error));
-  }, [props]);
+      .catch((error) => showError(error));
+  }, []);
 
   React.useEffect(() => {
     const movies = JSON.parse(localStorage.getItem('storedMovies'));
@@ -73,7 +73,7 @@ function Movies(props) {
       })
       .catch(() => {
         setIsLoading(false);
-        props.showError({ message: 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз' });
+        showError({ message: 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз' });
         setFilterMovies([]);
         setVisibleMovies([]);
       });
@@ -84,7 +84,7 @@ function Movies(props) {
       .then((newMovie) => {
         setLikedMovies([...likedMovies, newMovie]);
       })
-      .catch((error) => props.showError(error));
+      .catch((error) => showError(error));
   }
 
   function handleMovieDislike(movie) {
@@ -94,7 +94,7 @@ function Movies(props) {
         const arr = likedMovies.filter((el) => el._id !== newMovie._id);
         setLikedMovies(arr);
       })
-      .catch((error) => props.showError(error));
+      .catch((error) => showError(error));
   }
 
   function handleButtonMoreClick() {

@@ -51,16 +51,18 @@ function SearchForm({ searchCallBack }) {
       </span>
       <div className="checkbox">
         <div className="checkbox__container">
-          <input
-            id="search-checkbox"
-            type="checkbox"
-            className="checkbox__input"
-            name="shortFilm"
-            onChange={handleCheckboxChange}
-          />
-          <label htmlFor="search-checkbox" className="checkbox__label">Switch</label>
+          <label htmlFor="search-checkbox">
+            <input
+              id="search-checkbox"
+              type="checkbox"
+              className="checkbox__input"
+              name="shortFilm"
+              onChange={handleCheckboxChange}
+            />
+            <div className="checkbox__label" />
+          </label>
         </div>
-        <label htmlFor="search-checkbox" className="checkbox__text">Короткометражки</label>
+        <span className="checkbox__text">Короткометражки</span>
       </div>
     </>
   );

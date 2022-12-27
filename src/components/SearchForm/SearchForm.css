@@ -69,7 +69,6 @@
   display: block;
   width: 2.8125vw;
   height: 1.5625vw;
-
   text-indent: -150%;
   clip: rect(0 0 0 0);
   color: transparent;
@@ -118,6 +117,7 @@
   line-height: 18px;
   padding-left: 12px;
   padding-bottom: 1px;
+  user-select: none;
 }
 
 

@@ -5,7 +5,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import mainApi from '../../../utils/MainApi';
 import filterFilms from '../../../utils/filterFilms';
 
-function SavedMovies(props) {
+function SavedMovies({ showError }) {
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [moviesToShow, setMoviesToShow] = React.useState([]);
 
@@ -15,8 +15,8 @@ function SavedMovies(props) {
         setSavedMovies(movies);
         setMoviesToShow(movies);
       })
-      .catch((error) => props.showError(error));
-  }, [props]);
+      .catch((error) => showError(error));
+  }, []);
 
   function handleSeach(query, isShortMovie) {
     const filterItems = filterFilms(savedMovies, query, isShortMovie);
@@ -31,7 +31,7 @@ function SavedMovies(props) {
         const arr2 = moviesToShow.filter((el) => el._id !== movieId._id);
         setMoviesToShow(arr2);
       })
-      .catch((error) => props.showError(error));
+      .catch((error) => showError(error));
   }
   return (
     <section className="movies">
@@ -40,7 +40,7 @@ function SavedMovies(props) {
       />
       <MoviesCardList
         movies={moviesToShow}
-        isSaved={true}
+        isSaved
         onMovieDelete={handleMovieDelete}
       />
     </section>

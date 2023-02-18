@@ -5,7 +5,7 @@ module.exports = {
   },
   extends: [
     'plugin:react/recommended',
-    'airbnb-base',
+    'airbnb',
   ],
   parserOptions: {
     ecmaFeatures: {
@@ -18,9 +18,9 @@ module.exports = {
     'react',
   ],
   rules: {
+    'react/jsx-props-no-spreading': 'off',
     'react/prop-types': 'off',
     'no-underscore-dangle': 0,
     'class-methods-use-this': 0,
-    'max-len': ['error', { code: 171 }],
   },
 };

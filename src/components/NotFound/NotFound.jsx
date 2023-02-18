@@ -7,9 +7,9 @@ function NotFound() {
 
   return (
     <section className="notfound">
-    <h1 className="notfound__title">404</h1>
-    <p className="notfound__text">Страница не найдена</p>
-    <p className="noutfound__back" onClick={history.goBack}>Назад</p>
+      <h1 className="notfound__title">404</h1>
+      <p className="notfound__text">Страница не найдена</p>
+      <p className="noutfound__back" aria-hidden="true" onClick={history.goBack}>Назад</p>
     </section>
   );
 }

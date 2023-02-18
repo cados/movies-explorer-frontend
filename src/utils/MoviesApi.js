@@ -21,8 +21,10 @@ class MoviesApi {
   }
 
   getInitialMovies() {
-    return fetch(`${this._url}`,
-      { headers: this._headers })
+    return fetch(
+      `${this._url}`,
+      { headers: this._headers },
+    )
       .then(this._responseResult);
   }
 }

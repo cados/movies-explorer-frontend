@@ -3,13 +3,13 @@ import './SearchForm.css';
 import icon from '../../images/icon_lupa.svg';
 import useFormWithValidation from '../../utils/FormValidator';
 
-function SearchForm(props) {
+function SearchForm({ searchCallBack }) {
   const [isChecked, setIsChecked] = React.useState(false);
   const validator = useFormWithValidation();
 
   function handleSubmit(event) {
     event.preventDefault();
-    props.searchCallBack(validator.values.filmSearch, isChecked);
+    searchCallBack(validator.values.filmSearch, isChecked);
     event.target.reset();
   }
 
@@ -25,7 +25,7 @@ function SearchForm(props) {
           onSubmit={handleSubmit}
           onReset={validator.resetForm}
         >
-          <img className="search__icon" src={icon} title="search"></img>
+          <img className="search__icon" src={icon} title="search" alt="search" />
           <input
             className="search__title"
             name="filmSearch"
@@ -45,21 +45,24 @@ function SearchForm(props) {
         </form>
       </div>
       <span
-        className={`search__error ${validator.errors.filmSearch && validator.errors.filmSearch.length > 0 && 'search__error_active'}`}>
+        className={`search__error ${validator.errors.filmSearch && validator.errors.filmSearch.length > 0 && 'search__error_active'}`}
+      >
         Нужно ввести ключевое слово
       </span>
       <div className="checkbox">
         <div className="checkbox__container">
-          <input
-            id="search-checkbox"
-            type="checkbox"
-            className="checkbox__input"
-            name="shortFilm"
-            onChange={handleCheckboxChange}
-          />
-          <label htmlFor="search-checkbox" className="checkbox__label">Switch</label>
+          <label htmlFor="search-checkbox">
+            <input
+              id="search-checkbox"
+              type="checkbox"
+              className="checkbox__input"
+              name="shortFilm"
+              onChange={handleCheckboxChange}
+            />
+            <div className="checkbox__label" />
+          </label>
         </div>
-        <label htmlFor="search-checkbox" className="checkbox__text">Короткометражки</label>
+        <span className="checkbox__text">Короткометражки</span>
       </div>
     </>
   );

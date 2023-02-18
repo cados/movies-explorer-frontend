@@ -27,9 +27,9 @@ function Navigation() {
   return (
     <>
       <div onClick={handleClickMenu} className={menuClass}>
-        <span className="menu_midline"></span>
+        <span className="menu_midline" />
       </div>
-      <div onClick={handleClickMenu} className={overlayClass}></div>
+      <div onClick={handleClickMenu} className={overlayClass} />
       <div className="navigation_container">
         <nav className={navigationClass}>
           <NavLink exact to="/" onClick={handleClickMenu} activeClassName="navigation__link_active" className="navigation__link navigation__link_main"> Главная</NavLink>

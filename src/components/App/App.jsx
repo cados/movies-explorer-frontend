@@ -155,21 +155,25 @@ function App() {
             <Route exact path="/signup">
               {
                 loggedIn
-                  ? <Redirect to='/movies' />
-                  : <Registration
-                    onRegister={onRegister}
-                    errorMessage={errorMessage}
-                  />
+                  ? <Redirect to="/movies" />
+                  : (
+                    <Registration
+                      onRegister={onRegister}
+                      errorMessage={errorMessage}
+                    />
+                  )
               }
             </Route>
             <Route exact path="/signin">
               {
                 loggedIn
                   ? <Redirect to="/movies" />
-                  : <Login
-                    onLogin={onLogin}
-                    errorMessage={errorMessage}
-                  />
+                  : (
+                    <Login
+                      onLogin={onLogin}
+                      errorMessage={errorMessage}
+                    />
+                  )
               }
             </Route>
             <ProtectedRoute
@@ -185,7 +189,8 @@ function App() {
             </Route>
             <Route
               exact
-              path="*">
+              path="*"
+            >
               <Redirect to="/404" />
             </Route>
           </Switch>

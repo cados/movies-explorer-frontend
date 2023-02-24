@@ -49,7 +49,6 @@ function App() {
         mainApi.checkToken(token)
           .then(() => {
             setLoggedIn(true);
-            history.push('/movies');
           })
           .catch((error) => {
             showInfoPopup(error);

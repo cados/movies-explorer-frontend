@@ -1,11 +1,14 @@
 import React from 'react';
 import './Profile.css';
+import { useHistory } from 'react-router-dom';
 import useFormWithValidation from '../../utils/FormValidator';
 import { currentUserContext } from '../context/CurrentUserContext';
 
 function Profile({ onUpdateUser, onLogOut }) {
   const currentUser = React.useContext(currentUserContext);
   const validator = useFormWithValidation();
+
+  const history = useHistory();
 
   function handleUpdateUser(e) {
     e.preventDefault();
@@ -18,6 +21,7 @@ function Profile({ onUpdateUser, onLogOut }) {
   function handleLogOut() {
     localStorage.clear();
     onLogOut(false);
+    history.push('/');
   }
 
   return (

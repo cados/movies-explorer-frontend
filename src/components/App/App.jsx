@@ -96,7 +96,7 @@ function App() {
       });
   }
 
-  function handleUpdateUser(userData) {
+  function onUpdateUser(userData) {
     mainApi.updateUser(userData)
       .then((newUserData) => {
         showInfoPopup({ message: 'Профиль успешно обновлен' });
@@ -181,7 +181,7 @@ function App() {
               loggedIn={loggedIn}
               component={Profile}
               onLogOut={setLoggedIn}
-              onUpdateUser={handleUpdateUser}
+              onUpdateUser={onUpdateUser}
             />
             <Route exact path="/404">
               <NotFound />

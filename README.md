@@ -6,8 +6,7 @@
 
 **адрес домена сервера:**
 
-`cados-cinema.students.nomoredomains.work`
-Публичный IP адресс - 80.89.229.122
+`cinema-tech.space`
 
 ## Инструкция по установке
 

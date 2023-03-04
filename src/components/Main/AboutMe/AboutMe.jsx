@@ -1,15 +1,21 @@
 import React from 'react';
 import './AboutMe.css';
 import photo from '../../../images/profile.jpg';
+import calculateAge from '../../../utils/calculateAge';
 
 function AboutMe() {
+  const myAge = '1986-01-18';
   return (
     <section className="aboutMe" id="aboutMe">
       <h2 className="title">Студент</h2>
       <div className="aboutMe__textbox">
         <div>
           <h2 className="aboutMe__title">Артем</h2>
-          <h4 className="aboutMe__subtitle">Фронтенд-разработчик, 35 лет</h4>
+          <h4 className="aboutMe__subtitle">
+            Фронтенд-разработчик,&nbsp;
+            {calculateAge(myAge)}
+            &nbsp;лет
+          </h4>
           <p className="aboutMe__text">
             Я родился в маленьком городке на Донбассе, сейчас живу в Москве .
             В свое время постигал гранит науки в  колледже, потом в институте по

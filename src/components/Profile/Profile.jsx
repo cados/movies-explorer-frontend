@@ -36,7 +36,6 @@ function Profile({ onUpdateUser, onLogOut }) {
         <fieldset className="profile-form__fieldset">
           <div className="profile-form__input-container">
             <label className="profile-form__input-label" htmlFor="name">
-              {' '}
               Имя
               <input
                 type="text"
@@ -55,7 +54,6 @@ function Profile({ onUpdateUser, onLogOut }) {
           <span
             className={`form__error ${validator.errors.name && validator.errors.name.length > 0 && 'form__error_active'}`}
           >
-            {' '}
             {validator.errors.name}
           </span>
           <div className="profile-form__input-container">

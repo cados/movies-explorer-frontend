@@ -6,6 +6,7 @@ import logo from '../../images/logo.svg';
 
 function Register({ onRegister, errorMessage }) {
   const validator = useFormWithValidation();
+
   function handleSubmit(event) {
     event.preventDefault();
     onRegister(validator.values.name, validator.values.email, validator.values.password);
@@ -85,11 +86,7 @@ function Register({ onRegister, errorMessage }) {
                 {errorMessage}
               </span>
             )
-            : (
-              <span
-                className="register__error"
-              />
-            )}
+            : null}
           <button
             className="form__button"
             type="submit"

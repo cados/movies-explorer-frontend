@@ -21,7 +21,6 @@ function Login({ onLogin, errorMessage }) {
           onSubmit={handleSubmit}
           onReset={validator.resetForm}
           noValidate
-          action="post"
         >
           <label className="form__label" htmlFor="email">
             E-mail
@@ -68,8 +67,7 @@ function Login({ onLogin, errorMessage }) {
                 {errorMessage}
               </span>
             )
-            : <span className="register__error" />}
-
+            : null}
           <button
             className="form__button"
             type="submit"

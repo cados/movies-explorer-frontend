@@ -7,7 +7,7 @@ import ButtonMore from '../ButtonMore/ButtonMore';
 import filterFilms from '../../utils/filterFilms';
 import mainApi from '../../utils/MainApi';
 import moviesApi from '../../utils/MoviesApi';
-import defineAmountMoviesToShow from '../../utils/defineAmountMoviesToShow';
+import getMaxMoviesToShow from '../../utils/getMaxMoviesToShow';
 import defineIncrement from '../../utils/defineIncrement';
 import adaptObject from '../../utils/adaptObject';
 
@@ -15,14 +15,13 @@ function Movies({ showError }) {
   const [filterMovies, setFilterMovies] = React.useState([]);
   const [visibleMovies, setVisibleMovies] = React.useState([]);
   const [likedMovies, setLikedMovies] = React.useState([]);
-  // eslint-disable-next-line max-len
-  const [amountMoviesToShow, setAmountMoviesToShow] = React.useState(defineAmountMoviesToShow(window.innerWidth));
+  const [movieLimit, setMovieLimit] = React.useState(getMaxMoviesToShow(window.innerWidth));
   const [increment, setIncrement] = React.useState(defineIncrement(window.innerWidth));
   const [isLoading, setIsLoading] = React.useState(false);
 
   React.useEffect(() => {
     function handleWindowResize() {
-      setAmountMoviesToShow(defineAmountMoviesToShow(window.innerWidth));
+      setMovieLimit(getMaxMoviesToShow(window.innerWidth));
       setIncrement(defineIncrement(window.innerWidth));
     }
     window.addEventListener('resize', handleWindowResize);
@@ -41,39 +40,56 @@ function Movies({ showError }) {
   }, []);
 
   React.useEffect(() => {
-    const movies = JSON.parse(localStorage.getItem('storedMovies'));
-
-    if (movies != null) {
-      const moviesToShow = [];
-      for (let i = 0; i < (Math.min(movies.length, amountMoviesToShow)); i += 1) {
-        const isMovieLiked = likedMovies.filter((el) => el.movieId === movies[i].movieId);
-        moviesToShow.push({ ...movies[i], isLiked: isMovieLiked.length > 0 });
-      }
-      setFilterMovies(movies);
-      setVisibleMovies(moviesToShow);
+    // Получаем сохраненные фильмы из localStorage
+    const storedMovies = JSON.parse(localStorage.getItem('storedMovies'));
+    if (storedMovies) {
+      // Фильтруем фильмы в соответствии с количеством фильмов для показа
+      const filteredMovies = storedMovies
+        .slice(0, movieLimit)
+        .map((movie) => {
+          // Проверяем, понравился ли фильм пользователю
+          const isMovieLiked = likedMovies.some((el) => el.movieId === movie.movieId);
+          // Добавляем новое свойство isLiked к фильму
+          return { ...movie, isLiked: isMovieLiked };
+        });
+      // Устанавливаем отфильтрованные фильмы в состояние filteredMovies
+      setFilterMovies(filteredMovies);
+      // Устанавливаем отфильтрованные фильмы в состояние visibleMovies
+      setVisibleMovies(filteredMovies);
     }
-  }, [likedMovies, amountMoviesToShow]);
+  }, [likedMovies, movieLimit]);
 
   function handleMovieSearch(query, isShortMovie) {
     setIsLoading(true);
 
     moviesApi.getInitialMovies()
       .then((movies) => {
-        const filterItems = filterFilms(movies, query, isShortMovie);
-        const adaptItems = adaptObject(filterItems);
-        const moviesToShow = [];
-        for (let i = 0; i < (Math.min(adaptItems.length, amountMoviesToShow)); i += 1) {
-          const isMovieLiked = likedMovies.filter((el) => el.movieId === adaptItems[i].movieId);
-          moviesToShow.push({ ...adaptItems[i], isLiked: isMovieLiked.length > 0 });
-        }
-        setFilterMovies(adaptItems);
+        // Фильтруем фильмы
+        const filteredMovies = filterFilms(movies, query, isShortMovie);
+        // Адаптируем фильмы
+        const adaptedMovies = adaptObject(filteredMovies);
+        // Отображаем фильмы
+        const moviesToShow = adaptedMovies
+          .slice(0, movieLimit)
+          .map((movie) => {
+            // Проверяем, понравился ли фильм пользователю
+            const isMovieLiked = likedMovies.some((el) => el.movieId === movie.movieId);
+            // Добавляем новое свойство isLiked к фильму
+            return { ...movie, isLiked: isMovieLiked };
+          });
+        // Устанавливаем отфильтрованные и адаптированные фильмы в состояние filterMovies
+        setFilterMovies(adaptedMovies);
+        // Устанавливаем отображаемые фильмы в состояние visibleMovies
         setVisibleMovies(moviesToShow);
-        localStorage.setItem('storedMovies', JSON.stringify(adaptItems));
+        // Сохраняем адаптированные фильмы в localStorage
+        localStorage.setItem('storedMovies', JSON.stringify(adaptedMovies));
         setIsLoading(false);
       })
-      .catch(() => {
+      .catch((error) => {
         setIsLoading(false);
-        showError({ message: 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз' });
+        // Отображаем ошибку
+        showError({ message: `Во время запроса произошла ошибка: ${error.message}` });
+        // Устанавливаем пустые списки фильмов
         setFilterMovies([]);
         setVisibleMovies([]);
       });
@@ -88,24 +104,27 @@ function Movies({ showError }) {
   }
 
   function handleMovieDislike(movie) {
-    const movieToDelete = likedMovies.filter((el) => el.movieId === movie.movieId);
-    mainApi.dislikeMovie(movieToDelete[0]._id)
-      .then((newMovie) => {
-        const arr = likedMovies.filter((el) => el._id !== newMovie._id);
-        setLikedMovies(arr);
+    const movieToDelete = likedMovies.find((el) => el.movieId === movie.movieId);
+    if (!movieToDelete) {
+      return;
+    }
+    mainApi.dislikeMovie(movieToDelete._id)
+      .then((dislikedMovie) => {
+        const updatedLikedMovies = likedMovies.filter((el) => el._id !== dislikedMovie._id);
+        setLikedMovies(updatedLikedMovies);
       })
-      .catch((error) => showError(error));
+      .catch((error) => showError({ message: `Не удалось удалить фильм из списка понравившихся: ${error.message}` }));
   }
 
   function handleButtonMoreClick() {
     const limit = Math.min(filterMovies.length, visibleMovies.length + increment);
-    const arr = [];
-
-    for (let i = visibleMovies.length; i < limit; i += 1) {
-      const isMovieLiked = likedMovies.filter((el) => el.movieId === filterMovies[i].movieId);
-      arr.push({ ...filterMovies[i], isLiked: isMovieLiked.length > 0 });
-    }
-    setVisibleMovies([...visibleMovies, ...arr]);
+    const newMovies = filterMovies
+      .slice(visibleMovies.length, limit)
+      .map((movie) => {
+        const isMovieLiked = likedMovies.some((el) => el.movieId === movie.movieId);
+        return { ...movie, isLiked: isMovieLiked };
+      });
+    setVisibleMovies([...visibleMovies, ...newMovies]);
   }
 
   return (

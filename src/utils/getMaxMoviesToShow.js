@@ -1,4 +1,4 @@
-export default function defineAmountMoviesToShow(screenWidth) {
+export default function getMaxMoviesToShow(screenWidth) {
   if (screenWidth >= 1280) {
     return 12;
   }

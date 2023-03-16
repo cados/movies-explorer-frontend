@@ -9,7 +9,7 @@ import mainApi from '../../utils/MainApi';
 import moviesApi from '../../utils/MoviesApi';
 import getMaxMoviesToShow from '../../utils/getMaxMoviesToShow';
 import defineIncrement from '../../utils/defineIncrement';
-import adaptObject from '../../utils/adaptObject';
+import adaptMovieObjects from '../../utils/adaptMovieObjects';
 
 function Movies({ showError }) {
   const [filterMovies, setFilterMovies] = React.useState([]);
@@ -67,7 +67,7 @@ function Movies({ showError }) {
         // Фильтруем фильмы
         const filteredMovies = filterFilms(movies, query, isShortMovie);
         // Адаптируем фильмы
-        const adaptedMovies = adaptObject(filteredMovies);
+        const adaptedMovies = adaptMovieObjects(filteredMovies);
         // Отображаем фильмы
         const moviesToShow = adaptedMovies
           .slice(0, movieLimit)

@@ -25,22 +25,22 @@ function App() {
 
   const history = useHistory();
 
-  function showInfoPopup(error) {
+  const showInfoPopup = (error) => {
     if (error.message) {
       setErrorMessage(error.message);
     } else {
       setErrorMessage(error.validation.body.message);
     }
     setIsInfoTooltipOpen(true);
-  }
+  };
 
-  function showError(error) {
+  const showError = (error) => {
     if (error.message) {
       setErrorMessage(error.message);
     } else {
       setErrorMessage(error.validation.body.message);
     }
-  }
+  };
 
   React.useEffect(() => {
     const tockenCheck = () => {
@@ -71,7 +71,7 @@ function App() {
     }
   }, [loggedIn]);
 
-  function onLogin(email, password) {
+  const onLogin = (email, password) => {
     mainApi.authorize(email, password)
       .then(() => {
         setLoggedIn(true);
@@ -81,9 +81,9 @@ function App() {
         showError(error);
       })
       .finally(setErrorMessage(''));
-  }
+  };
 
-  function onRegister(name, email, password) {
+  const onRegister = (name, email, password) => {
     mainApi.register(name, email, password)
       .then(() => {
         history.push('/movies');
@@ -94,9 +94,9 @@ function App() {
       .catch((error) => {
         showError(error);
       });
-  }
+  };
 
-  function onUpdateUser(userData) {
+  const onUpdateUser = (userData) => {
     mainApi.updateUser(userData)
       .then((newUserData) => {
         showInfoPopup({ message: 'Профиль успешно обновлен' });
@@ -105,11 +105,11 @@ function App() {
       .catch((error) => {
         showInfoPopup(error);
       });
-  }
+  };
 
-  function closePopup() {
+  const closePopup = () => {
     setIsInfoTooltipOpen(false);
-  }
+  };
 
   const routesPathsHeaderArray = [
     '/signin',

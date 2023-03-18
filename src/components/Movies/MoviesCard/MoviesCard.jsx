@@ -37,7 +37,7 @@ function MoviesCard({
   }
 
   function handleClick() {
-    if (data.trailer !== '') {
+    if (data.trailer) {
       window.open(data.trailer);
     }
   }

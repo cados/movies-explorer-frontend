@@ -8,9 +8,9 @@ import profileIcon from '../../images/icon-main.svg';
 function Navigation() {
   const [menuIsOpen, setMenuIsOpen] = React.useState(false);
 
-  function handleClickMenu() {
+  const handleClickMenu = () => {
     setMenuIsOpen(!menuIsOpen);
-  }
+  };
 
   const menuClass = classnames({
     menu: true,

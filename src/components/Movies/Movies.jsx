@@ -59,7 +59,7 @@ function Movies({ showError }) {
     }
   }, [likedMovies, movieLimit]);
 
-  function handleMovieSearch(query, isShortMovie) {
+  const handleMovieSearch = (query, isShortMovie) => {
     setIsLoading(true);
 
     moviesApi.getInitialMovies()
@@ -93,17 +93,17 @@ function Movies({ showError }) {
         setFilterMovies([]);
         setVisibleMovies([]);
       });
-  }
+  };
 
-  function handleMovieLike(movie) {
+  const handleMovieLike = (movie) => {
     mainApi.likeMovie(movie)
       .then((newMovie) => {
         setLikedMovies([...likedMovies, newMovie]);
       })
       .catch((error) => showError(error));
-  }
+  };
 
-  function handleMovieDislike(movie) {
+  const handleMovieDislike = (movie) => {
     const movieToDelete = likedMovies.find((el) => el.movieId === movie.movieId);
     if (!movieToDelete) {
       return;
@@ -114,9 +114,9 @@ function Movies({ showError }) {
         setLikedMovies(updatedLikedMovies);
       })
       .catch((error) => showError({ message: `Не удалось удалить фильм из списка понравившихся: ${error.message}` }));
-  }
+  };
 
-  function handleButtonMoreClick() {
+  const handleButtonMoreClick = () => {
     const limit = Math.min(filterMovies.length, visibleMovies.length + increment);
     const newMovies = filterMovies
       .slice(visibleMovies.length, limit)
@@ -125,7 +125,7 @@ function Movies({ showError }) {
         return { ...movie, isLiked: isMovieLiked };
       });
     setVisibleMovies([...visibleMovies, ...newMovies]);
-  }
+  };
 
   return (
     <section className="movies">

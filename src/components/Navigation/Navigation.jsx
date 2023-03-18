@@ -26,10 +26,23 @@ function Navigation() {
   });
   return (
     <>
-      <div onClick={handleClickMenu} className={menuClass}>
+      <div
+        onClick={handleClickMenu}
+        onKeyDown={handleClickMenu}
+        role="button"
+        tabIndex={0}
+        className={menuClass}
+      >
         <span className="menu_midline" />
       </div>
-      <div onClick={handleClickMenu} className={overlayClass} />
+      <div
+        onClick={handleClickMenu}
+        onKeyDown={handleClickMenu}
+        role="button"
+        tabIndex={0}
+        className={overlayClass}
+        aria-label="Переключить меню"
+      />
       <div className="navigation_container">
         <nav className={navigationClass}>
           <NavLink exact to="/" onClick={handleClickMenu} activeClassName="navigation__link_active" className="navigation__link navigation__link_main"> Главная</NavLink>

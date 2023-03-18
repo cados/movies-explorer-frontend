@@ -1,41 +1,44 @@
 import React from 'react';
 import './MoviesCard.css';
 
-function MoviesCard(props) {
-  const [isLiked, setIsLiked] = React.useState(props.data.isLiked);
+function MoviesCard({
+  data, onMovieDislike, onMovieLike, onMovieDelete, isSaved,
+}) {
+  const [isLiked, setIsLiked] = React.useState(data.isLiked);
+
   React.useEffect(() => {
-    setIsLiked(props.data.isLiked);
-  }, [props.data.isLiked]);
+    setIsLiked(data.isLiked);
+  }, [data.isLiked]);
 
   function handleLikeClick() {
     if (isLiked) {
       setIsLiked(false);
-      props.onMovieDislike(props.data);
+      onMovieDislike(data);
     } else {
       setIsLiked(true);
-      props.onMovieLike({
-        country: props.data.country || 'не указано',
-        director: props.data.director || 'не указано',
-        duration: props.data.duration || 'не указано',
-        description: props.data.description || 'не указано',
-        image: props.data.image || 'https://images.unsplash.com/photo-1588066801004-3d2a8ef323d7',
-        trailer: props.data.trailer || 'https://www.youtube.com',
-        nameRU: props.data.nameRU || 'не указано',
-        nameEN: props.data.nameEN || 'не указано',
-        movieId: props.data.movieId,
-        thumbnail: props.data.thumbnail,
-        year: props.data.year,
+      onMovieLike({
+        country: data.country || 'не указано',
+        director: data.director || 'не указано',
+        duration: data.duration || 'не указано',
+        description: data.description || 'не указано',
+        image: data.image || 'https://images.unsplash.com/photo-1588066801004-3d2a8ef323d7',
+        trailer: data.trailer || 'https://www.youtube.com',
+        nameRU: data.nameRU || 'не указано',
+        nameEN: data.nameEN || 'не указано',
+        movieId: data.movieId,
+        thumbnail: data.thumbnail,
+        year: data.year,
       });
     }
   }
 
   function handleDeleteClick() {
-    props.onMovieDelete(props);
+    onMovieDelete(data);
   }
 
   function handleClick() {
-    if (props.data.trailer !== '') {
-      window.open(props.data.trailer);
+    if (data.trailer !== '') {
+      window.open(data.trailer);
     }
   }
 
@@ -55,10 +58,10 @@ function MoviesCard(props) {
       <article className="movies-card-article">
         <div className="movies-card-article__header">
           <div className="movies-card-article__text-container">
-            <h2 className="movies-card-article__title">{props.data.nameRU}</h2>
-            <p className="movies-card-article__subtitle">{duration(props.data.duration)}</p>
+            <h2 className="movies-card-article__title">{data.nameRU}</h2>
+            <p className="movies-card-article__subtitle">{duration(data.duration)}</p>
           </div>
-          {props.isSaved
+          {isSaved
             ? (
               <button
                 className="movies-card-article__favorite-button movies-card-article__favorite-button-remove"
@@ -79,8 +82,8 @@ function MoviesCard(props) {
         <div className="movies-card-article__image-section">
           <img
             className="movies-card-article__image"
-            src={props.data.image}
-            alt={`фото ${props.data.nameRU}`}
+            src={data.image}
+            alt={`фото ${data.nameRU}`}
             onClick={handleClick}
           />
         </div>

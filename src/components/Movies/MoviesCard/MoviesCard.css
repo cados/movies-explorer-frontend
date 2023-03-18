@@ -10,6 +10,12 @@
   height: 203px;
 }
 
+.movies-card-article__image-button{
+  outline: none;
+  border: none;
+  padding: 0;
+}
+
 .movies-card-article__header{
   box-sizing: border-box;
   padding: 14px;

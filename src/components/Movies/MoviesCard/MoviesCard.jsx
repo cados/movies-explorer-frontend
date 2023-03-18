@@ -80,12 +80,17 @@ function MoviesCard({
             )}
         </div>
         <div className="movies-card-article__image-section">
-          <img
-            className="movies-card-article__image"
-            src={data.image}
-            alt={`фото ${data.nameRU}`}
+          <button
+            className="movies-card-article__image-button"
+            type="button"
             onClick={handleClick}
-          />
+          >
+            <img
+              className="movies-card-article__image"
+              src={data.image}
+              alt={`фото ${data.nameRU}`}
+            />
+          </button>
         </div>
       </article>
     </li>

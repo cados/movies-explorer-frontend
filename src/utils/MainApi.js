@@ -8,7 +8,7 @@ class MainApi {
     return res.json()
       .then((json) => {
         if (!res.ok) {
-          return Promise.reject(new Error('Ошибка запроса на сервер'));
+          return Promise.reject(new Error(json.message) || 'Ошибка запросв на сервер');
         }
         return json;
       });

@@ -16,10 +16,12 @@ function Navigation() {
     menu: true,
     menu_active: menuIsOpen,
   });
+
   const navigationClass = classnames({
     navigation: true,
     navigation_active: menuIsOpen,
   });
+
   const overlayClass = classnames({
     menu__overlay: true,
     menu__overlay_active: menuIsOpen,
@@ -45,10 +47,36 @@ function Navigation() {
       />
       <div className="navigation_container">
         <nav className={navigationClass}>
-          <NavLink exact to="/" onClick={handleClickMenu} activeClassName="navigation__link_active" className="navigation__link navigation__link_main"> Главная</NavLink>
-          <NavLink to="/movies" onClick={handleClickMenu} activeClassName="navigation__link_active" className="navigation__link">Фильмы</NavLink>
-          <NavLink to="/saved-movies" onClick={handleClickMenu} activeClassName="navigation__link_active" className="navigation__link">Сохранённые фильмы</NavLink>
-          <Link onClick={handleClickMenu} className="navigation__account navigation__account_menu" to="/profile">
+          <NavLink
+            exact
+            to="/"
+            onClick={handleClickMenu}
+            activeClassName="navigation__link_active"
+            className="navigation__link navigation__link_main"
+          >
+            Главная
+          </NavLink>
+          <NavLink
+            to="/movies"
+            onClick={handleClickMenu}
+            activeClassName="navigation__link_active"
+            className="navigation__link"
+          >
+            Фильмы
+          </NavLink>
+          <NavLink
+            to="/saved-movies"
+            onClick={handleClickMenu}
+            activeClassName="navigation__link_active"
+            className="navigation__link"
+          >
+            Сохранённые фильмы
+          </NavLink>
+          <Link
+            to="/profile"
+            onClick={handleClickMenu}
+            className="navigation__account navigation__account_menu"
+          >
             Аккаунт
             <img
               className="header__icon"
@@ -57,7 +85,10 @@ function Navigation() {
             />
           </Link>
         </nav>
-        <Link className="navigation__account" to="/profile">
+        <Link
+          to="/profile"
+          className="navigation__account"
+        >
           Аккаунт
           <img
             className="header__icon"

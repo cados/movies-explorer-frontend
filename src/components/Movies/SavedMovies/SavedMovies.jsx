@@ -31,7 +31,7 @@ function SavedMovies({ showError }) {
         const arr2 = moviesToShow.filter((el) => el._id !== movieId._id);
         setMoviesToShow(arr2);
       })
-      .catch((error) => showError(error));
+      .catch((error) => showError({ message: `Не удалось удалить фильм: ${error.message}` }));
   };
   return (
     <section className="movies">

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import useFormWithValidation from '../../utils/FormValidator';
 import logo from '../../images/logo.svg';
 
-function Register({ onRegister, errorMessage }) {
+function Register({ onRegister, errorMessage, setErrorMessage }) {
   const validator = useFormWithValidation();
 
   function handleSubmit(event) {
@@ -12,6 +12,10 @@ function Register({ onRegister, errorMessage }) {
     onRegister(validator.values.name, validator.values.email, validator.values.password);
     event.target.reset();
   }
+
+  React.useEffect(() => {
+    setErrorMessage(null);
+  }, []);
 
   return (
     <section className="register">

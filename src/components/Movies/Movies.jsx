@@ -100,7 +100,7 @@ function Movies({ showError }) {
       .then((newMovie) => {
         setLikedMovies([...likedMovies, newMovie]);
       })
-      .catch((error) => showError(error));
+      .catch((error) => showError({ message: `Не удалось поставить лайк: ${error.message}` }));
   };
 
   const handleMovieDislike = (movie) => {

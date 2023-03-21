@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import useFormWithValidation from '../../utils/FormValidator';
 import logo from '../../images/logo.svg';
 
-function Login({ onLogin, errorMessage }) {
+function Login({ onLogin, errorMessage, setErrorMessage }) {
   const validator = useFormWithValidation();
 
   function handleSubmit(event) {
@@ -11,6 +11,11 @@ function Login({ onLogin, errorMessage }) {
     onLogin(validator.values.email, validator.values.password);
     event.target.reset();
   }
+
+  React.useEffect(() => {
+    setErrorMessage(null);
+  }, []);
+
   return (
     <section className="register">
       <div className="register__container">

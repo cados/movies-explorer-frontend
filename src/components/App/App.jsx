@@ -21,24 +21,20 @@ function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState('');
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = React.useState(false);
-  const [errorMessage, setErrorMessage] = React.useState('');
+  const [errorMessage, setErrorMessage] = React.useState(null);
 
   const history = useHistory();
 
   const showInfoPopup = (error) => {
-    if (error.message) {
+    if (error) {
       setErrorMessage(error.message);
-    } else {
-      setErrorMessage(error.validation.body.message);
     }
     setIsInfoTooltipOpen(true);
   };
 
   const showError = (error) => {
-    if (error.message) {
+    if (error) {
       setErrorMessage(error.message);
-    } else {
-      setErrorMessage(error.validation.body.message);
     }
   };
 
@@ -79,8 +75,7 @@ function App() {
       })
       .catch((error) => {
         showError(error);
-      })
-      .finally(setErrorMessage(''));
+      });
   };
 
   const onRegister = (name, email, password) => {
@@ -159,6 +154,7 @@ function App() {
                     <Registration
                       onRegister={onRegister}
                       errorMessage={errorMessage}
+                      setErrorMessage={setErrorMessage}
                     />
                   )
               }
@@ -171,6 +167,7 @@ function App() {
                     <Login
                       onLogin={onLogin}
                       errorMessage={errorMessage}
+                      setErrorMessage={setErrorMessage}
                     />
                   )
               }

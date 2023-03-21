@@ -25,17 +25,13 @@ function App() {
 
   const history = useHistory();
 
-  const showInfoPopup = (error) => {
-    if (error) {
-      setErrorMessage(error.message);
-    }
-    setIsInfoTooltipOpen(true);
+  const showError = (error) => {
+    setErrorMessage(error.message);
   };
 
-  const showError = (error) => {
-    if (error) {
-      setErrorMessage(error.message);
-    }
+  const showInfoPopup = (error) => {
+    showError(error);
+    setIsInfoTooltipOpen(true);
   };
 
   React.useEffect(() => {

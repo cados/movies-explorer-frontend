@@ -45,9 +45,9 @@ function Profile({ onUpdateUser, onLogOut }) {
                 minLength="1"
                 maxLength="30"
                 pattern="^[а-яА-ЯёЁa-zA-Z0-9]+$"
-                required
                 defaultValue={currentUser.name}
                 onChange={validator.handleChange}
+                required
               />
             </label>
           </div>
@@ -65,9 +65,9 @@ function Profile({ onUpdateUser, onLogOut }) {
                 id="email"
                 name="email"
                 defaultValue={currentUser.email}
-                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                required
+                pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
                 onChange={validator.handleChange}
+                required
               />
             </label>
             <span className={`form__error ${validator.errors.email && validator.errors.email.length > 0 && 'form__error_active'}`}>
